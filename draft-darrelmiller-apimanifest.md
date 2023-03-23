@@ -8,19 +8,19 @@ number:
 date:
 consensus: false
 v: 3
-area: ART
-workgroup: WG Working Group
+# area: ART
+# workgroup: WG Working Group
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: darrelmiller/api-manifest
-  latest: https://example.com/LATEST
+#  group: WG
+#  type: Working Group
+#  mail: WG@example.com
+#  arch: https://example.com/WG
+  github: "darrelmiller/api-manifest"
+  latest: "https://darrelmiller.github.io/api-manifest/draft-darrelmiller-apimanifest.html"
 
 author:
  -
