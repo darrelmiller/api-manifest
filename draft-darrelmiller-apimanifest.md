@@ -11,9 +11,9 @@ v: 3
 # area: ART
 # workgroup: WG Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - API
+ - Http
+ - OpenAPI
 venue:
 #  group: WG
 #  type: Working Group
