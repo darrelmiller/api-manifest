@@ -26,7 +26,7 @@ docname: draft-darrelmiller-apimanifest-latest
 submissiontype: independent  # also: "IETF","independent", "IAB", or "IRTF"
 number:
 date:
-consensus: true
+consensus: false
 v: 3
 area: ART
 workgroup: WG Working Group
