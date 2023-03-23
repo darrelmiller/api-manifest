@@ -19,17 +19,16 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "API Manifest"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
-submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
+docname: draft-darrelmiller-apimanifest-latest
+submissiontype: independent  # also: "IETF","independent", "IAB", or "IRTF"
 number:
 date:
 consensus: true
 v: 3
-area: AREA
+area: ART
 workgroup: WG Working Group
 keyword:
  - next generation
@@ -40,14 +39,14 @@ venue:
   type: Working Group
   mail: WG@example.com
   arch: https://example.com/WG
-  github: USER/REPO
+  github: darrelmiller/api-manifest
   latest: https://example.com/LATEST
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Darrel Miller
+    organization: Microsoft
+    email: darrel.miller@microsoft.com
 
 normative:
 
