@@ -2,10 +2,10 @@
 
 This is the working area for the individual Internet-Draft, "API Manifest".
 
-* [Editor's Copy](https://darrelmiller.github.io/api-manifest/#go.draft-darrelmiller-apimanifest.html)
+* [Editor's Copy](https://darrelmiller.github.io/api-manifest/draft-darrelmiller-apimanifest.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-darrelmiller-apimanifest)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-darrelmiller-apimanifest)
-* [Compare Editor's Copy to Individual Draft](https://darrelmiller.github.io/api-manifest/#go.draft-darrelmiller-apimanifest.diff)
+* [Compare Editor's Copy to Individual Draft](https://darrelmiller.github.io/api-manifest/draft-darrelmiller-apimanifest.diff)
 
 
 ## Contributing
