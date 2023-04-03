@@ -53,7 +53,8 @@ By creating an API manifest format independent of the application programming la
 
 # Schema
 
-```CDDL
+```
+
 apiManifest = {
     ? appPublisher: publisherDetails
     apiDependency : [* apiDependency]
@@ -82,6 +83,7 @@ requestDetails = {
     method: tstr
     resourceIdentifierTemplate: tstr
 }
+
 ```
 
 # Conventions and Definitions
