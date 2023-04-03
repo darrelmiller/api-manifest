@@ -54,8 +54,34 @@ By creating an API manifest format independent of the application programming la
 # Schema
 
 ```CDDL
+apiManifest = {
+    ? appPublisher: publisherDetails
+    apiDependency : [* apiDependency]
+}
 
+; Identification of the application developer / organization
+publisherDetails = {
+    name: tstr
+}
 
+;  Declaration of application dependencies on HTTP API
+apiDependency = {
+    apiDescription: tstr
+    auth: authDetails
+    requests: [+ requestDetails]
+}
+
+; Permissions required by client application for the described dependency
+authDetails = {
+    ? clientId: tstr
+    ? permissions: [+ tstr]
+}
+
+; sdsd
+requestDetails = {
+    method: tstr
+    resourceIdentifierTemplate: tstr
+}
 ```
 
 # Conventions and Definitions
