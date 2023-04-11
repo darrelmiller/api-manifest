@@ -40,11 +40,11 @@ This document defines an "api manifest" as a way to capture the dependencies tha
 
 # Introduction
 
-Applications frequently rely on HTTP APIs to provide functionality to users. Currently, there are limited options for developers to be able to describe those dependencies and the options that do exist do not have sufficiently detailed information to enable some scenarios. By contrast, there does exist declarative, machine readable files, that describe the dependencies that applications have on code libraries and packages. These files have enabled an ecosystem of tooling related to checking, adding, updating and reporting on dependencies. This specification defines a machine processable format to enable a programming language agnostic tooling ecosystem be built around the dependencies applications have on HTTP APIs.
+Applications frequently rely on HTTP APIs to provide functionality to users. Currently, there are limited options for developers to be able to describe those dependencies and options that do exist do not have sufficiently detailed information to enable some of the desired scenarios. By contrast, there does exist declarative, machine readable files, that describe the dependencies that applications have on code libraries and packages. These files have enabled an ecosystem of tooling related to checking, adding, updating and reporting on dependencies. This specification defines a machine processable format to enable a programming language agnostic tooling ecosystem be built around the dependencies applications have on HTTP APIs.
 
 An API manifest such as described in this document could enable a number of scenarios:
 
-- generate client code that can be used to access those resources
+- generate a minimal set of client code that can be used to access the specified resources
 - identify the scopes or roles that an application must be granted to be able to access those resources.
 - use as input to Software Bill Of Materials documents to support secure supply chain efforts.
 - perform dependency checks for updates to APIs in a similar way Dependabot tooling does for package dependencies
@@ -55,7 +55,6 @@ It is common for the the person who consents an application to be used, and ther
 There are no guarantees that an API manifest accurately describes that capabilities and dependencies of an application. There remains an element of trust. It is not in itself a security artifact. However, it can play an role in enabling tooling as part of a secure supply chain.
 
 By creating an API manifest format independent of the application programming language tooling that consumes the API manifest can be created in any programming language. Language specific tooling could be created to generate API manifests by introspecting application code.  Tooling could be created to produce API manifests to support  design first methodologies, or integration centric scenarios.
-
 
 # Schema
 
@@ -73,9 +72,9 @@ The publisher object contains a `name` property that is a JSON string. This stri
 
 Each Api dependency object represents a HTTP API that the target application consumes. The `apiDescriptionUrl` references an API description document such as an OpenAPI description. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
 
-## Authorization Details Object {#authDetails}
+## Authorization Requirements Object {#authReqirements}
 
-## Security Scheme Object {#securityScheme}
+The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency `requests` property. The `clientId` property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The `permissions` property is a JSON object that map a set of security schemes to an array of permission strings required to perform the complete set of requests defined in the {#api-dependency}. The Api Manifest does not correlate which permission is required for a specific request.  It is assumed that the application must be granted the complete set of permissions in order to perform its function.
 
 ## Request Info {#requestInfo}
 
@@ -96,19 +95,14 @@ publisher = {
 ;  Declaration of application dependencies on HTTP API
 apiDependency = {
     apiDescriptionUrl: tstr
-    auth: authDetails
+    authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
 }
 
 ; Permissions required by client application for the described dependency
-authDetails = {
+authorizationRequirements = {
     ? clientId: tstr
-    ? permissions: {+ schemeKey => securityScheme}
-}
-
-;  Need a better name than "scheme"
-securityScheme = {
-    permissions: [+ tstr]
+    ? permissions: {+ securityScheme => [+ tstr]}
 }
 
 ; Details of a resource request
@@ -117,7 +111,6 @@ requestInfo = {
     uriTemplate: tstr
     ? dataClassification: tstr
 }
-
 
 ~~~
 
