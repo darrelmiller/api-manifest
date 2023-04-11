@@ -45,10 +45,11 @@ Applications frequently rely on HTTP APIs to provide functionality to users. Cur
 An API manifest such as described in this document could enable a number of scenarios:
 
 - generate a minimal set of client code that can be used to access the specified resources
-- identify the scopes or roles that an application must be granted to be able to access those resources.
-- use as input to Software Bill Of Materials documents to support secure supply chain efforts.
+- define API subsets for API gateways
+- identify the scopes or roles that an application must be granted to be able to access those resources
+- use as Signed Statement in Trustworthy and Transparent Digigtal Supply Chains
 - perform dependency checks for updates to APIs in a similar way Dependabot tooling does for package dependencies
-- provide security alters for APIs that have announced discovered vulnerabilities
+- provide security alerts for APIs that have announced discovered vulnerabilities
 
 It is common for the the person who consents an application to be used, and therefore access data and functionality of HTTP APIs, not be capable of reviewing application source code to understand the details of what an application does. The API manifest can be used to create admin friendly descriptions of application capabilities to simplify the process of application consent.
 
@@ -81,7 +82,7 @@ The Authorization Requirements object contains information that is required to a
 ~~~ cddl
 
 apiManifest = {
-    applicationName: tstr  ; Not sure if we need this
+    applicationName: tstr
     ? publisher: publisher
     apiDependencies : [* apiDependency]
 }
@@ -129,8 +130,8 @@ Example:
             "auth": {
                 "clientId": "some-uuid-here",
                 "permissions": {
-                    "delegated": ["user.read"],
-                    "application": []
+                    "delegated": ["resourceA.ReadWrite", "resourceB.ReadWrite"],
+                    "application": ["resourceB.Read"]
                 }
             },
             "requests": [{
