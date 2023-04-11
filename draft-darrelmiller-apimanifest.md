@@ -80,7 +80,7 @@ Each Api dependency object represents a HTTP API that the target application con
 ## Request Info {#requestInfo}
 
 ~~~ cddl
-{::include manifest.cddl }
+{::include ./manifest.cddl }
 ~~~
 
 Example:
