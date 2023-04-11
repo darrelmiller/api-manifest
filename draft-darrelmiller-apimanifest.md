@@ -59,42 +59,28 @@ By creating an API manifest format independent of the application programming la
 
 # Schema
 
+## Api Manifest {#api-manifest}
+
+The Api Manifest document contains information about a target application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the `application/api-manifest` media type.
+
+An API manifest document contains a `appPublisher` property that has a value described by the {{publisher}} and an array of zero or more {{api-dependency}} objects.
+
+## Publisher Object {#publisher}
+
+The publisher object contains a `name` property that is a JSON string. This string contains a value representing the organization or individual responsible for the application that this api manifest belongs to.  The `contactEmail` provides a mechanism to communicate information to the publisher.
+
+## Api Dependency Object {#api-dependency}
+
+Each Api dependency object represents a HTTP API that the target application consumes. The `apiDescriptionUrl` references an API description document such as an OpenAPI description. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
+
+## Authorization Details Object {#authDetails}
+
+## Security Scheme Object {#securityScheme}
+
+## Request Info {#requestInfo}
+
 ~~~ cddl
-
-apiManifest = {
-    ? appPublisher: publisherDetails
-    apiDependencies : [* apiDependency]
-}
-
-; Identification of the application developer / organization
-publisherDetails = {
-    name: tstr
-}
-
-;  Declaration of application dependencies on HTTP API
-apiDependency = {
-    apiDescription: tstr
-    auth: authDetails
-    requests: [+ requestDetails]
-}
-
-; Permissions required by client application for the described dependency
-authDetails = {
-    ? clientId: tstr
-    ? permissions: {+ schemeKey => securityScheme}
-}
-
-;  Need a better name than "scheme"
-securityScheme = {
-    permissions: [+ tstr]
-}
-
-; sdsd
-requestDetails = {
-    method: tstr
-    uriTemplate: tstr
-}
-
+{::include manifest.cddl }
 ~~~
 
 Example:
@@ -102,12 +88,13 @@ Example:
 ~~~ json
 
 {
-    "appPublisher": {
-        "name": "Alice"
+    "publisher": {
+        "name": "Alice",
+        "contactEmail": "alice@example.org"
     },
     "apiDependencies": [
         {
-            "apiDescripion": "https://example.org/openapi.json",
+            "apiDescripionUrl": "https://example.org/openapi.json",
             "auth": {
                 "clientId": "some-uuid-here",
                 "permissions": {
