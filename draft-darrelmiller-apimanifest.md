@@ -80,7 +80,45 @@ Each Api dependency object represents a HTTP API that the target application con
 ## Request Info {#requestInfo}
 
 ~~~ cddl
-{::include ./manifest.cddl }
+
+apiManifest = {
+    applicationName: tstr  ; Not sure if we need this
+    ? publisher: publisher
+    apiDependencies : [* apiDependency]
+}
+
+; Identification of the application developer / organization
+publisher = {
+    name: tstr
+    contactEmail: tstr
+}
+
+;  Declaration of application dependencies on HTTP API
+apiDependency = {
+    apiDescriptionUrl: tstr
+    auth: authDetails
+    requests: [+ requestInfo]
+}
+
+; Permissions required by client application for the described dependency
+authDetails = {
+    ? clientId: tstr
+    ? permissions: {+ schemeKey => securityScheme}
+}
+
+;  Need a better name than "scheme"
+securityScheme = {
+    permissions: [+ tstr]
+}
+
+; Details of a resource request
+requestInfo = {
+    method: tstr
+    uriTemplate: tstr
+    ? dataClassification: tstr
+}
+
+
 ~~~
 
 Example:
