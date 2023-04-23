@@ -1,0 +1,276 @@
+
+
+
+
+Network Working Group                                          D. Miller
+Internet-Draft                                                 Microsoft
+Intended status: Informational                             11 April 2023
+Expires: 13 October 2023
+
+
+                              API Manifest
+                 draft-darrelmiller-apimanifest-latest
+
+Abstract
+
+   This document defines an "api manifest" as a way to capture the
+   dependencies that an application has on HTTP APIs.  It contains
+   characteristics of those dependencies including links to API
+   descriptions, specifics of the types of HTTP API requests made by the
+   application and related authorization information.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://darrelmiller.github.io/api-manifest/draft-darrelmiller-
+   apimanifest.html.  Status information for this document may be found
+   at https://datatracker.ietf.org/doc/draft-darrelmiller-apimanifest/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/darrelmiller/api-manifest.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 13 October 2023.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Schema
+     2.1.  Api Manifest
+     2.2.  Publisher Object
+     2.3.  Api Dependency Object
+     2.4.  Authorization Requirements Object
+     2.5.  Request Info
+   3.  Conventions and Definitions
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  Normative References
+   Acknowledgments
+   Author's Address
+
+1.  Introduction
+
+   Applications frequently rely on HTTP APIs to provide functionality to
+   users.  Currently, there are limited options for developers to be
+   able to describe those dependencies and options that do exist do not
+   have sufficiently detailed information to enable some of the desired
+   scenarios.  By contrast, there does exist declarative, machine
+   readable files, that describe the dependencies that applications have
+   on code libraries and packages.  These files have enabled an
+   ecosystem of tooling related to checking, adding, updating and
+   reporting on dependencies.  This specification defines a machine
+   processable format to enable a programming language agnostic tooling
+   ecosystem be built around the dependencies applications have on HTTP
+   APIs.
+
+   An API manifest such as described in this document could enable a
+   number of scenarios:
+
+   *  generate a minimal set of client code that can be used to access
+      the specified resources
+
+   *  define API subsets for API gateways
+
+   *  identify the scopes or roles that an application must be granted
+      to be able to access those resources
+
+   *  use as Signed Statement in Trustworthy and Transparent Digigtal
+      Supply Chains
+
+   *  perform dependency checks for updates to APIs in a similar way
+      Dependabot tooling does for package dependencies
+
+   *  provide security alerts for APIs that have announced discovered
+      vulnerabilities
+
+   It is common for the the person who consents an application to be
+   used, and therefore access data and functionality of HTTP APIs, not
+   be capable of reviewing application source code to understand the
+   details of what an application does.  The API manifest can be used to
+   create admin friendly descriptions of application capabilities to
+   simplify the process of application consent.
+
+   There are no guarantees that an API manifest accurately describes
+   that capabilities and dependencies of an application.  There remains
+   an element of trust.  It is not in itself a security artifact.
+   However, it can play an role in enabling tooling as part of a secure
+   supply chain.
+
+   By creating an API manifest format independent of the application
+   programming language tooling that consumes the API manifest can be
+   created in any programming language.  Language specific tooling could
+   be created to generate API manifests by introspecting application
+   code.  Tooling could be created to produce API manifests to support
+   design first methodologies, or integration centric scenarios.
+
+2.  Schema
+
+2.1.  Api Manifest
+
+   The Api Manifest document contains information about a target
+   application that consumes HTTP APIs.  The canonical model for an API
+   Manifest document is a JSON object.  When serialized as JSON it can
+   be identified by the application/api-manifest media type.
+
+   An API manifest document contains a appPublisher property that has a
+   value described by the Section 2.2 and an array of zero or more
+   Section 2.3 objects.
+
+2.2.  Publisher Object
+
+   The publisher object contains a name property that is a JSON string.
+   This string contains a value representing the organization or
+   individual responsible for the application that this api manifest
+   belongs to.  The contactEmail provides a mechanism to communicate
+   information to the publisher.
+
+2.3.  Api Dependency Object
+
+   Each Api dependency object represents a HTTP API that the target
+   application consumes.  The apiDescriptionUrl references an API
+   description document such as an OpenAPI description.  The auth
+   property contains the requirements for the target application to
+   authorize a call to the HTTP API.  The requests property contains a
+   array of requestInfo objects.
+
+2.4.  Authorization Requirements Object
+
+   The Authorization Requirements object contains information that is
+   required to authorize the application to perform the requests listed
+   in the Api Dependency requests property.  The clientId property is a
+   JSON string value used to identify the application to an OAuth2
+   authorization server for APIs that use OAuth2 for authorization.  The
+   permissions property is a JSON object that map a set of security
+   schemes to an array of permission strings required to perform the
+   complete set of requests defined in the {#api-dependency}. The Api
+   Manifest does not correlate which permission is required for a
+   specific request.  It is assumed that the application must be granted
+   the complete set of permissions in order to perform its function.
+
+2.5.  Request Info
+
+   apiManifest = {
+       applicationName: tstr
+       ? publisher: publisher
+       apiDependencies : [* apiDependency]
+   }
+
+   ; Identification of the application developer / organization
+   publisher = {
+       name: tstr
+       contactEmail: tstr
+   }
+
+   ;  Declaration of application dependencies on HTTP API
+   apiDependency = {
+       apiDescriptionUrl: tstr
+       authorizationRequirements: authorizationRequirements
+       requests: [+ requestInfo]
+   }
+
+   ; Permissions required by client application for the described dependency
+   authorizationRequirements = {
+       ? clientId: tstr
+       ? permissions: {+ securityScheme => [+ tstr]}
+   }
+
+   ; Details of a resource request
+   requestInfo = {
+       method: tstr
+       uriTemplate: tstr
+       ? dataClassification: tstr
+   }
+
+   Example:
+
+   {
+       "publisher": {
+           "name": "Alice",
+           "contactEmail": "alice@example.org"
+       },
+       "apiDependencies": [
+           {
+               "apiDescripionUrl": "https://example.org/openapi.json",
+               "auth": {
+                   "clientId": "some-uuid-here",
+                   "permissions": {
+                       "delegated": ["resourceA.ReadWrite", "resourceB.ReadWrite"],
+                       "application": ["resourceB.Read"]
+                   }
+               },
+               "requests": [{
+                   "method": "GET",
+                   "uriTemplate": "https://example.org/api/resourceA"
+                   },
+                   {
+                   "method": "GET",
+                   "uriTemplate": "https://example.org/api/resourceB"
+                   }
+               ]
+           }
+       ]
+   }
+
+3.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+4.  Security Considerations
+
+   TODO Security
+
+5.  IANA Considerations
+
+   This document has no IANA actions.
+
+6.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Acknowledgments
+
+   TODO acknowledge.
+
+Author's Address
+
+   Darrel Miller
+   Microsoft
+   Email: darrel.miller@microsoft.com
