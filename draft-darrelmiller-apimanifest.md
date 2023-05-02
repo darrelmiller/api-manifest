@@ -130,17 +130,23 @@ Example:
             "auth": {
                 "clientId": "some-uuid-here",
                 "permissions": {
-                    "delegated": ["resourceA.ReadWrite", "resourceB.ReadWrite"],
-                    "application": ["resourceB.Read"]
+                    "delegated": [
+                        "resourceA.ReadWrite",
+                        "resourceB.ReadWrite"
+                    ],
+                    "application": [
+                        "resourceB.Read"
+                    ]
                 }
             },
-            "requests": [{
-                "method": "GET",
-                "uriTemplate": "https://example.org/api/resourceA"
+            "requests": [
+                {
+                    "method": "GET",
+                    "uriTemplate": "https://example.org/api/resourceA"
                 },
                 {
-                "method": "GET",
-                "uriTemplate": "https://example.org/api/resourceB"
+                    "method": "GET",
+                    "uriTemplate": "https://example.org/api/resourceB"
                 }
             ]
         }
