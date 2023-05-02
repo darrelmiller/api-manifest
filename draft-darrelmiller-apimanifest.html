@@ -9,22 +9,20 @@
 <meta content='
        This document defines an "api manifest" as a way to capture the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information. 
     ' name="description">
-<meta content="xml2rfc 3.17.0" name="generator">
+<meta content="xml2rfc 3.17.1" name="generator">
 <meta content="API" name="keyword">
 <meta content="Http" name="keyword">
 <meta content="OpenAPI" name="keyword">
 <meta content="draft-darrelmiller-apimanifest-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.0
-    Python 3.10.10
+  xml2rfc 3.17.1
+    Python 3.10.11
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
-    html5lib 1.1
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.2
-    MarkupSafe 2.1.1
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.28.1
@@ -1049,11 +1047,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">API Manifest</td>
-<td class="right">April 2023</td>
+<td class="right">May 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Miller</td>
-<td class="center">Expires 13 October 2023</td>
+<td class="center">Expires 3 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1064,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-darrelmiller-apimanifest-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-04-11" class="published">11 April 2023</time>
+<time datetime="2023-05-02" class="published">2 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-10-13">13 October 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-03">3 November 2023</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1116,7 +1114,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 13 October 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1306,17 +1304,23 @@ requestInfo = {
             "auth": {
                 "clientId": "some-uuid-here",
                 "permissions": {
-                    "delegated": ["resourceA.ReadWrite", "resourceB.ReadWrite"],
-                    "application": ["resourceB.Read"]
+                    "delegated": [
+                        "resourceA.ReadWrite",
+                        "resourceB.ReadWrite"
+                    ],
+                    "application": [
+                        "resourceB.Read"
+                    ]
                 }
             },
-            "requests": [{
-                "method": "GET",
-                "uriTemplate": "https://example.org/api/resourceA"
+            "requests": [
+                {
+                    "method": "GET",
+                    "uriTemplate": "https://example.org/api/resourceA"
                 },
                 {
-                "method": "GET",
-                "uriTemplate": "https://example.org/api/resourceB"
+                    "method": "GET",
+                    "uriTemplate": "https://example.org/api/resourceB"
                 }
             ]
         }

@@ -4,8 +4,8 @@
 
 Network Working Group                                          D. Miller
 Internet-Draft                                                 Microsoft
-Intended status: Informational                             11 April 2023
-Expires: 13 October 2023
+Intended status: Informational                                2 May 2023
+Expires: 3 November 2023
 
 
                               API Manifest
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 October 2023.
+   This Internet-Draft will expire on 3 November 2023.
 
 Copyright Notice
 
@@ -221,17 +221,23 @@ Table of Contents
                "auth": {
                    "clientId": "some-uuid-here",
                    "permissions": {
-                       "delegated": ["resourceA.ReadWrite", "resourceB.ReadWrite"],
-                       "application": ["resourceB.Read"]
+                       "delegated": [
+                           "resourceA.ReadWrite",
+                           "resourceB.ReadWrite"
+                       ],
+                       "application": [
+                           "resourceB.Read"
+                       ]
                    }
                },
-               "requests": [{
-                   "method": "GET",
-                   "uriTemplate": "https://example.org/api/resourceA"
+               "requests": [
+                   {
+                       "method": "GET",
+                       "uriTemplate": "https://example.org/api/resourceA"
                    },
                    {
-                   "method": "GET",
-                   "uriTemplate": "https://example.org/api/resourceB"
+                       "method": "GET",
+                       "uriTemplate": "https://example.org/api/resourceB"
                    }
                ]
            }
