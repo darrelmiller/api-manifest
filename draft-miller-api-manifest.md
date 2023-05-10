@@ -61,7 +61,7 @@ By creating an API manifest format independent of the application programming la
 
 The Api Manifest document contains information about a target application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the `application/api-manifest` media type.
 
-An API manifest document contains a `appPublisher` property that has a value described by the {{publisher}} and an array of zero or more {{api-dependency}} objects.
+An API manifest document contains a `appPublisher` property that has a value described by the publisher {{publisher}} and an array of zero or more Api Dependency {{api-dependency}} objects.
 
 ## Publisher Object {#publisher}
 
@@ -73,11 +73,11 @@ Each Api dependency object represents a HTTP API that the target application con
 
 ## Authorization Requirements Object {#authReqirements}
 
-The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency `requests` property. The `clientId` property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The `permissions` property is a JSON object that map a set of security schemes to an array of permission strings required to perform the complete set of requests defined in the {#api-dependency}. The Api Manifest does not correlate which permission is required for a specific request.  It is assumed that the application must be granted the complete set of permissions in order to perform its function.
+The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency `requests` property. The `clientId` property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The `permissions` property is a JSON object that map a set of security schemes to an array of permission strings required to perform the complete set of requests defined in the Api Dependency {{api-dependency}}. The Api Manifest does not attempt to correlate which permission is required for a specific request. It is assumed that the application must be granted the complete set of permissions in order to perform its function.
 
 ## Request Info Object {#requestInfo}
 
-Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify one or more operations defined in the API description referenced in the {{api-dependency}}. The  `excludes` property when set to `true` can be used to eliminate specific operations included by another  {{requestInfo}}. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
+Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify one or more operations defined in the API description referenced in the Api Dependency{{api-dependency}}. The  `excludes` property when set to `true` can be used to eliminate specific operations included by another Request Info {{requestInfo}}. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
 ~~~ cddl
 
