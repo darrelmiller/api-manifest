@@ -7,13 +7,13 @@
 <title>API Manifest</title>
 <meta content="Darrel Miller" name="author">
 <meta content='
-       This document defines an "api manifest" as a way to capture the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information. 
+       This document defines an "api manifest" as a way to declare the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information. 
     ' name="description">
 <meta content="xml2rfc 3.17.1" name="generator">
 <meta content="API" name="keyword">
 <meta content="Http" name="keyword">
 <meta content="OpenAPI" name="keyword">
-<meta content="draft-darrelmiller-apimanifest-latest" name="ietf.draft">
+<meta content="draft-miller-api-manifest-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.17.1
     Python 3.10.11
@@ -30,7 +30,7 @@
     six 1.16.0
     wcwidth 0.2.6
 -->
-<link href="draft-darrelmiller-apimanifest.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-miller-api-manifest.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -661,7 +661,8 @@ sub, sup {
 .references dt {
   text-align: right;
   font-weight: bold;
-  min-width: 7em;
+  min-width: 10ch;
+  margin-right: 1.5ch;
 }
 .references dt:target::before {
   content: "⇒";
@@ -669,7 +670,7 @@ sub, sup {
   margin: 0 10px 0 -25px;
 }
 .references dd {
-  margin-left: 8em !important;
+  margin-left: 12ch !important;
   overflow: auto;
 }
 
@@ -1051,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Miller</td>
-<td class="center">Expires 3 November 2023</td>
+<td class="center">Expires 11 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1059,17 +1060,17 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">Network Working Group</dd>
+<dd class="workgroup">Internet Engineering Task Force</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-darrelmiller-apimanifest-latest</dd>
+<dd class="internet-draft">draft-miller-api-manifest-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-05-02" class="published">2 May 2023</time>
+<time datetime="2023-05-10" class="published">10 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
-<dd class="intended-status">Informational</dd>
+<dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-11-03">3 November 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-11">11 November 2023</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1082,7 +1083,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">API Manifest</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This document defines an "api manifest" as a way to capture the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This document defines an "api manifest" as a way to declare the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1090,8 +1091,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
-        The latest revision of this draft can be found at <span><a href="https://darrelmiller.github.io/api-manifest/draft-darrelmiller-apimanifest.html">https://darrelmiller.github.io/api-manifest/draft-darrelmiller-apimanifest.html</a></span>.
-        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-darrelmiller-apimanifest/">https://datatracker.ietf.org/doc/draft-darrelmiller-apimanifest/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+        The latest revision of this draft can be found at <span><a href="https://darrelmiller.github.io/api-manifest/draft-miller-apimanifest.html">https://darrelmiller.github.io/api-manifest/draft-miller-apimanifest.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-miller-api-manifest/">https://datatracker.ietf.org/doc/draft-miller-api-manifest/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
 <p id="section-note.1-3">Source for this draft and an issue tracker can be found at
         <span><a href="https://github.com/darrelmiller/api-manifest">https://github.com/darrelmiller/api-manifest</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
 </section>
@@ -1114,7 +1115,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 3 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1131,7 +1132,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
             (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
             publication of this document. Please review these documents
             carefully, as they describe your rights and restrictions with
-            respect to this document.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="toc">
@@ -1159,7 +1163,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-authorization-requirements-" class="internal xref">Authorization Requirements Object</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.5">
-                <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="auto internal xref">2.5</a>.  <a href="#name-request-info" class="internal xref">Request Info</a></p>
+                <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="auto internal xref">2.5</a>.  <a href="#name-request-info-object" class="internal xref">Request Info Object</a></p>
 </li>
             </ul>
 </li>
@@ -1238,7 +1242,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-api-dependency-object">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-api-dependency-object" class="section-name selfRef">Api Dependency Object</a>
         </h3>
-<p id="section-2.3-1">Each Api dependency object represents a HTTP API that the target application consumes. The <code>apiDescriptionUrl</code> references an API description document such as an OpenAPI description. The <code>auth</code> property contains the requirements for the target application to authorize a call to the HTTP API. The <code>requests</code> property contains a array of <code>requestInfo</code> objects.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">Each Api dependency object represents a HTTP API that the target application consumes. The <code>apiDescriptionUrl</code> references an API description document such as an <a href="https://spec.openapis.org/oas/latest.html">OpenAPI</a> description. The <code>auth</code> property contains the requirements for the target application to authorize a call to the HTTP API. The <code>requests</code> property contains a array of <code>requestInfo</code> objects.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authReqirements">
@@ -1251,10 +1255,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div id="requestInfo">
 <section id="section-2.5">
-        <h3 id="name-request-info">
-<a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-request-info" class="section-name selfRef">Request Info</a>
+        <h3 id="name-request-info-object">
+<a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-request-info-object" class="section-name selfRef">Request Info Object</a>
         </h3>
-<div class="lang-cddl sourcecode" id="section-2.5-1">
+<p id="section-2.5-1">Each Request Info object contains a <code>uriTemplate</code> [RFC6570] and a corresponding HTTP <code>method</code>. The values are used to identify one or more operations defined in the API description referenced in the <a href="#api-dependency" class="auto internal xref">Section 2.3</a>. The  <code>excludes</code> property when set to <code>true</code> can be used to eliminate specific operations included by another  <a href="#requestInfo" class="auto internal xref">Section 2.5</a>. The <code>dataClassification</code> property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
+<div class="lang-cddl sourcecode" id="section-2.5-2">
 <pre>
 apiManifest = {
     applicationName: tstr
@@ -1285,13 +1290,14 @@ authorizationRequirements = {
 requestInfo = {
     method: tstr
     uriTemplate: tstr
-    ? dataClassification: tstr
+    ? exclude: bool
+    ? dataClassification: [* tstr]
 }
 
-</pre><a href="#section-2.5-1" class="pilcrow">¶</a>
+</pre><a href="#section-2.5-2" class="pilcrow">¶</a>
 </div>
-<p id="section-2.5-2">Example:<a href="#section-2.5-2" class="pilcrow">¶</a></p>
-<div class="lang-json sourcecode" id="section-2.5-3">
+<p id="section-2.5-3">Example:<a href="#section-2.5-3" class="pilcrow">¶</a></p>
+<div class="lang-json sourcecode" id="section-2.5-4">
 <pre>
 {
     "publisher": {
@@ -1326,7 +1332,7 @@ requestInfo = {
         }
     ]
 }
-</pre><a href="#section-2.5-3" class="pilcrow">¶</a>
+</pre><a href="#section-2.5-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1356,7 +1362,31 @@ appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶<
       <h2 id="name-iana-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-5-1">This document has no IANA actions.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This document document registers the <code>application/api-manifest+json</code> media type.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">Type name:  application<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">Subtype name:  api-manifest+json<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">Required parameters:  n/a<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">Optional parameters:  n/a<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type.  See [RFC7159].<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-7">Security considerations:  TBD.<a href="#section-5-7" class="pilcrow">¶</a></p>
+<p id="section-5-8">Interoperability considerations:  TBD.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-9">Published specification:  This document is the specification for this media type.<a href="#section-5-9" class="pilcrow">¶</a></p>
+<p id="section-5-10">Applications that use this media type:<a href="#section-5-10" class="pilcrow">¶</a></p>
+<p id="section-5-11">Additional information:<a href="#section-5-11" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5-12">
+<pre>
+Magic number(s):  n/a
+
+File extension(s):  TBD
+
+Macintosh file type code(s):  n/a
+</pre><a href="#section-5-12" class="pilcrow">¶</a>
+</div>
+<p id="section-5-13">Person &amp; email address to contact for further information:  See Authors' Addresses section.<a href="#section-5-13" class="pilcrow">¶</a></p>
+<p id="section-5-14">Intended usage:  COMMON<a href="#section-5-14" class="pilcrow">¶</a></p>
+<p id="section-5-15">Restrictions on usage:  n/a<a href="#section-5-15" class="pilcrow">¶</a></p>
+<p id="section-5-16">Author:  See Authors' Addresses section.<a href="#section-5-16" class="pilcrow">¶</a></p>
+<p id="section-5-17">Change controller:  Internet Engineering Task Force (mailto:iesg@ietf.org).<a href="#section-5-17" class="pilcrow">¶</a></p>
 </section>
 </div>
 <section id="section-6">
