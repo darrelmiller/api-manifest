@@ -143,8 +143,8 @@ Table of Contents
    be identified by the application/api-manifest media type.
 
    An API manifest document contains a appPublisher property that has a
-   value described by the Section 2.2 and an array of zero or more
-   Section 2.3 objects.
+   value described by the publisher Section 2.2 and an array of zero or
+   more Api Dependency Section 2.3 objects.
 
 2.2.  Publisher Object
 
@@ -173,21 +173,22 @@ Table of Contents
    authorization server for APIs that use OAuth2 for authorization.  The
    permissions property is a JSON object that map a set of security
    schemes to an array of permission strings required to perform the
-   complete set of requests defined in the {#api-dependency}. The Api
-   Manifest does not correlate which permission is required for a
-   specific request.  It is assumed that the application must be granted
-   the complete set of permissions in order to perform its function.
+   complete set of requests defined in the Api Dependency Section 2.3.
+   The Api Manifest does not attempt to correlate which permission is
+   required for a specific request.  It is assumed that the application
+   must be granted the complete set of permissions in order to perform
+   its function.
 
 2.5.  Request Info Object
 
    Each Request Info object contains a uriTemplate [RFC6570] and a
    corresponding HTTP method.  The values are used to identify one or
-   more operations defined in the API description referenced in the
-   Section 2.3.  The excludes property when set to true can be used to
-   eliminate specific operations included by another Section 2.5.  The
-   dataClassification property is a list of URIs used to indicate
-   privacy classifications of the data being transmitted via the HTTP
-   request.
+   more operations defined in the API description referenced in the Api
+   DependencySection 2.3.  The excludes property when set to true can be
+   used to eliminate specific operations included by another Request
+   Info Section 2.5.  The dataClassification property is a list of URIs
+   used to indicate privacy classifications of the data being
+   transmitted via the HTTP request.
 
    apiManifest = {
        applicationName: tstr

@@ -1226,7 +1226,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-api-manifest" class="section-name selfRef">Api Manifest</a>
         </h3>
 <p id="section-2.1-1">The Api Manifest document contains information about a target application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the <code>application/api-manifest</code> media type.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">An API manifest document contains a <code>appPublisher</code> property that has a value described by the <a href="#publisher" class="auto internal xref">Section 2.2</a> and an array of zero or more <a href="#api-dependency" class="auto internal xref">Section 2.3</a> objects.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">An API manifest document contains a <code>appPublisher</code> property that has a value described by the publisher <a href="#publisher" class="auto internal xref">Section 2.2</a> and an array of zero or more Api Dependency <a href="#api-dependency" class="auto internal xref">Section 2.3</a> objects.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="publisher">
@@ -1250,7 +1250,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-authorization-requirements-">
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-authorization-requirements-" class="section-name selfRef">Authorization Requirements Object</a>
         </h3>
-<p id="section-2.4-1">The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency <code>requests</code> property. The <code>clientId</code> property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The <code>permissions</code> property is a JSON object that map a set of security schemes to an array of permission strings required to perform the complete set of requests defined in the {#api-dependency}. The Api Manifest does not correlate which permission is required for a specific request.  It is assumed that the application must be granted the complete set of permissions in order to perform its function.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-1">The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency <code>requests</code> property. The <code>clientId</code> property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The <code>permissions</code> property is a JSON object that map a set of security schemes to an array of permission strings required to perform the complete set of requests defined in the Api Dependency <a href="#api-dependency" class="auto internal xref">Section 2.3</a>. The Api Manifest does not attempt to correlate which permission is required for a specific request. It is assumed that the application must be granted the complete set of permissions in order to perform its function.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requestInfo">
@@ -1258,7 +1258,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-request-info-object">
 <a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-request-info-object" class="section-name selfRef">Request Info Object</a>
         </h3>
-<p id="section-2.5-1">Each Request Info object contains a <code>uriTemplate</code> [RFC6570] and a corresponding HTTP <code>method</code>. The values are used to identify one or more operations defined in the API description referenced in the <a href="#api-dependency" class="auto internal xref">Section 2.3</a>. The  <code>excludes</code> property when set to <code>true</code> can be used to eliminate specific operations included by another  <a href="#requestInfo" class="auto internal xref">Section 2.5</a>. The <code>dataClassification</code> property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
+<p id="section-2.5-1">Each Request Info object contains a <code>uriTemplate</code> [RFC6570] and a corresponding HTTP <code>method</code>. The values are used to identify one or more operations defined in the API description referenced in the Api Dependency<a href="#api-dependency" class="auto internal xref">Section 2.3</a>. The  <code>excludes</code> property when set to <code>true</code> can be used to eliminate specific operations included by another Request Info <a href="#requestInfo" class="auto internal xref">Section 2.5</a>. The <code>dataClassification</code> property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.<a href="#section-2.5-1" class="pilcrow">¶</a></p>
 <div class="lang-cddl sourcecode" id="section-2.5-2">
 <pre>
 apiManifest = {
