@@ -1,15 +1,12 @@
 ---
 title: "API Manifest"
-category: info
-
-docname: draft-darrelmiller-apimanifest-latest
-submissiontype: independent  # also: "IETF","independent", "IAB", or "IRTF"
-number:
-date:
-consensus: false
+category: std
+docname: draft-miller-api-manifest-latest
+ipr: trust200902
+submissiontype: IETF
 v: 3
-# area: ART
-# workgroup: WG Working Group
+area: General
+wg: Internet Engineering Task Force
 keyword:
  - API
  - Http
@@ -20,11 +17,12 @@ venue:
 #  mail: WG@example.com
 #  arch: https://example.com/WG
   github: "darrelmiller/api-manifest"
-  latest: "https://darrelmiller.github.io/api-manifest/draft-darrelmiller-apimanifest.html"
+  latest: "https://darrelmiller.github.io/api-manifest/draft-miller-apimanifest.html"
 
 author:
  -
-    fullname: Darrel Miller
+    ins: D. Miller
+    name: Darrel Miller
     organization: Microsoft
     email: darrel.miller@microsoft.com
 
@@ -34,7 +32,7 @@ informative:
 
 
 --- abstract
-This document defines an "api manifest" as a way to capture the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information.
+This document defines an "api manifest" as a way to declare the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information.
 
 --- middle
 
@@ -71,13 +69,15 @@ The publisher object contains a `name` property that is a JSON string. This stri
 
 ## Api Dependency Object {#api-dependency}
 
-Each Api dependency object represents a HTTP API that the target application consumes. The `apiDescriptionUrl` references an API description document such as an OpenAPI description. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
+Each Api dependency object represents a HTTP API that the target application consumes. The `apiDescriptionUrl` references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
 
 ## Authorization Requirements Object {#authReqirements}
 
 The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency `requests` property. The `clientId` property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The `permissions` property is a JSON object that map a set of security schemes to an array of permission strings required to perform the complete set of requests defined in the {#api-dependency}. The Api Manifest does not correlate which permission is required for a specific request.  It is assumed that the application must be granted the complete set of permissions in order to perform its function.
 
-## Request Info {#requestInfo}
+## Request Info Object {#requestInfo}
+
+Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify one or more operations defined in the API description referenced in the {{api-dependency}}. The  `excludes` property when set to `true` can be used to eliminate specific operations included by another  {{requestInfo}}. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
 ~~~ cddl
 
@@ -110,7 +110,8 @@ authorizationRequirements = {
 requestInfo = {
     method: tstr
     uriTemplate: tstr
-    ? dataClassification: tstr
+    ? exclude: bool
+    ? dataClassification: [* tstr]
 }
 
 ~~~
@@ -166,8 +167,43 @@ TODO Security
 
 # IANA Considerations
 
-This document has no IANA actions.
+This document document registers the `application/api-manifest+json` media type.
 
+Type name:  application
+
+Subtype name:  api-manifest+json
+
+Required parameters:  n/a
+
+Optional parameters:  n/a
+
+Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type.  See [RFC7159].
+
+Security considerations:  TBD.
+
+Interoperability considerations:  TBD.
+
+Published specification:  This document is the specification for this media type.
+
+Applications that use this media type:
+
+Additional information:
+
+    Magic number(s):  n/a
+
+    File extension(s):  TBD
+
+    Macintosh file type code(s):  n/a
+
+Person & email address to contact for further information:  See Authors' Addresses section.
+
+Intended usage:  COMMON
+
+Restrictions on usage:  n/a
+
+Author:  See Authors' Addresses section.
+
+Change controller:  Internet Engineering Task Force (mailto:iesg@ietf.org).
 
 --- back
 
