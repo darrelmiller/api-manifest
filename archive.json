@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-09T00:52:51.250562+00:00",
+  "timestamp": "2023-05-11T00:51:11.242112+00:00",
   "repo": "darrelmiller/api-manifest",
   "labels": [
     {
@@ -49,6 +49,23 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJNH1SM5lgqZ4",
+      "title": "dataClassification questions",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/1",
+      "state": "OPEN",
+      "author": "darrelmiller",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "- Should it be a URI?\r\n- Should we support multiple?\r\n- Should we distinguish between inbound and outbound data?",
+      "createdAt": "2023-05-10T03:32:39Z",
+      "updatedAt": "2023-05-10T03:32:39Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
