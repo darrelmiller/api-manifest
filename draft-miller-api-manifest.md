@@ -61,15 +61,15 @@ By creating an API manifest format independent of the application programming la
 
 The Api Manifest document contains information about a target application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the `application/api-manifest` media type.
 
-An API manifest document contains a `appPublisher` property that has a value described by the publisher {{publisher}} and an array of zero or more Api Dependency {{api-dependency}} objects.
+An API manifest document SHOULD contain a `appPublisher` property that has a value described by the publisher {{publisher}} and MUST contain a JSON object that contains of zero or more mappings from a string key to Api Dependency {{api-dependency}} objects.  The API Manifest object MUST contain an `applicationName` string property to uniquely identify the application to users of the API Manifest.
 
 ## Publisher Object {#publisher}
 
-The publisher object contains a `name` property that is a JSON string. This string contains a value representing the organization or individual responsible for the application that this api manifest belongs to.  The `contactEmail` provides a mechanism to communicate information to the publisher.
+The publisher object MUST contain a `name` property that is a JSON string. This string contains a value representing the organization or individual responsible for the application that this api manifest belongs to.  The `contactEmail` property MUST provide an email address to communicate information to the publisher of the application being described.
 
-## Api Dependency Object {#api-dependency}
+## API Dependency Object {#api-dependency}
 
-Each Api dependency object represents a HTTP API that the target application consumes. The `apiDescriptionUrl` references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
+Each API dependency object represents a HTTP API that the target application consumes. The API dependency object MAY contain a `apiDescriptionUrl` that references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
 
 ## Authorization Requirements Object {#authReqirements}
 
@@ -84,7 +84,7 @@ Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding 
 apiManifest = {
     applicationName: tstr
     ? publisher: publisher
-    apiDependencies : [* apiDependency]
+    apiDependencies : {* tstr => apiDependency}
 }
 
 ; Identification of the application developer / organization
@@ -95,15 +95,20 @@ publisher = {
 
 ;  Declaration of application dependencies on HTTP API
 apiDependency = {
-    apiDescriptionUrl: tstr
+    ? apiDescriptionUrl: tstr
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
 }
 
 ; Permissions required by client application for the described dependency
 authorizationRequirements = {
-    ? clientId: tstr
-    ? permissions: {+ securityScheme => [+ tstr]}
+    ? clientIdentifier: tstr
+    ? access: [+accessRequest] | [+tstr]
+}
+
+accessRequest = {
+    type : tstr ;
+    * tstr => any;
 }
 
 ; Details of a resource request
@@ -125,20 +130,26 @@ Example:
         "name": "Alice",
         "contactEmail": "alice@example.org"
     },
-    "apiDependencies": [
-        {
+    "apiDependencies":
+        "example": {
             "apiDescripionUrl": "https://example.org/openapi.json",
             "auth": {
-                "clientId": "some-uuid-here",
-                "permissions": {
-                    "delegated": [
-                        "resourceA.ReadWrite",
-                        "resourceB.ReadWrite"
-                    ],
-                    "application": [
-                        "resourceB.Read"
-                    ]
-                }
+                "clientIdentifier": "some-uuid-here",
+                "access": [
+                    {
+                        "type": "delegated",
+                        "actions": [
+                                    "resourceA.ReadWrite",
+                                    "resourceB.ReadWrite"
+                                ]
+                    },
+                    {
+                        "type": "application",
+                        "actions": [
+                                    "resourceB.Read"
+                                ]
+                    }
+                ]
             },
             "requests": [
                 {
@@ -150,8 +161,7 @@ Example:
                     "uriTemplate": "https://example.org/api/resourceB"
                 }
             ]
-        }
-    ]
+    }
 }
 ~~~
 
@@ -211,3 +221,65 @@ Change controller:  Internet Engineering Task Force (mailto:iesg@ietf.org).
 {:numbered="false"}
 
 TODO acknowledge.
+
+# Appendix
+
+## Example for Microsoft Graph API
+
+~~~ json
+
+{
+    "publisher": {
+        "name": "Alice",
+        "contactEmail": "alice@example.org"
+    },
+    "apiDependencies": [
+        {
+            "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+            "baseUrl": "https://graoh.microsoft.com/v1.0/",
+            "auth": {
+                "clientIdentifier": "some-uuid-here",
+                "access": [
+                    {
+                        "type": "openid",
+                        "claims": {
+                            "scp": {
+                                "essential": true,
+                                "values": [
+                                    "User.Read",
+                                    "Mail.ReadWrite.All"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "openid",
+                        "claims": {
+                            "roles": { "essential": true,
+                                        "values": [
+                                            "User.Read.All"
+                                        ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "requests": [
+                {
+                    "method": "GET",
+                    "uriTemplate": "https://graoh.microsoft.com/v1.0/me"
+                },
+                {
+                    "method": "GET",
+                    "uriTemplate": "https://graoh.microsoft.com/v1.0/users/{userId}/messages"
+                },
+                                {
+                    "method": "GET",
+                    "uriTemplate": "https://graoh.microsoft.com/v1.0/users"
+                }
+
+            ]
+        }
+    ]
+}
+~~~
