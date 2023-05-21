@@ -4,8 +4,8 @@
 
 Internet Engineering Task Force                                D. Miller
 Internet-Draft                                                 Microsoft
-Intended status: Standards Track                             10 May 2023
-Expires: 11 November 2023
+Intended status: Standards Track                             21 May 2023
+Expires: 22 November 2023
 
 
                               API Manifest
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 November 2023.
+   This Internet-Draft will expire on 22 November 2023.
 
 Copyright Notice
 
@@ -68,7 +68,7 @@ Table of Contents
    2.  Schema
      2.1.  Api Manifest
      2.2.  Publisher Object
-     2.3.  Api Dependency Object
+     2.3.  API Dependency Object
      2.4.  Authorization Requirements Object
      2.5.  Request Info Object
    3.  Conventions and Definitions
@@ -76,6 +76,8 @@ Table of Contents
    5.  IANA Considerations
    6.  Normative References
    Acknowledgments
+   Appendix
+     Example for Microsoft Graph API
    Author's Address
 
 1.  Introduction
@@ -142,27 +144,31 @@ Table of Contents
    Manifest document is a JSON object.  When serialized as JSON it can
    be identified by the application/api-manifest media type.
 
-   An API manifest document contains a appPublisher property that has a
-   value described by the publisher Section 2.2 and an array of zero or
-   more Api Dependency Section 2.3 objects.
+   An API manifest document SHOULD contain a appPublisher property that
+   has a value described by the publisher Section 2.2 and MUST contain a
+   JSON object that contains of zero or more mappings from a string key
+   to Api Dependency Section 2.3 objects.  The API Manifest object MUST
+   contain an applicationName string property to uniquely identify the
+   application to users of the API Manifest.
 
 2.2.  Publisher Object
 
-   The publisher object contains a name property that is a JSON string.
-   This string contains a value representing the organization or
-   individual responsible for the application that this api manifest
-   belongs to.  The contactEmail provides a mechanism to communicate
-   information to the publisher.
+   The publisher object MUST contain a name property that is a JSON
+   string.  This string contains a value representing the organization
+   or individual responsible for the application that this api manifest
+   belongs to.  The contactEmail property MUST provide an email address
+   to communicate information to the publisher of the application being
+   described.
 
-2.3.  Api Dependency Object
+2.3.  API Dependency Object
 
-   Each Api dependency object represents a HTTP API that the target
-   application consumes.  The apiDescriptionUrl references an API
-   description document such as an OpenAPI
-   (https://spec.openapis.org/oas/latest.html) description.  The auth
-   property contains the requirements for the target application to
-   authorize a call to the HTTP API.  The requests property contains a
-   array of requestInfo objects.
+   Each API dependency object represents a HTTP API that the target
+   application consumes.  The API dependency object MAY contain a
+   apiDescriptionUrl that references an API description document such as
+   an OpenAPI (https://spec.openapis.org/oas/latest.html) description.
+   The auth property contains the requirements for the target
+   application to authorize a call to the HTTP API.  The requests
+   property contains a array of requestInfo objects.
 
 2.4.  Authorization Requirements Object
 
@@ -193,7 +199,7 @@ Table of Contents
    apiManifest = {
        applicationName: tstr
        ? publisher: publisher
-       apiDependencies : [* apiDependency]
+       apiDependencies : {* tstr => apiDependency}
    }
 
    ; Identification of the application developer / organization
@@ -204,15 +210,20 @@ Table of Contents
 
    ;  Declaration of application dependencies on HTTP API
    apiDependency = {
-       apiDescriptionUrl: tstr
+       ? apiDescriptionUrl: tstr
        authorizationRequirements: authorizationRequirements
        requests: [+ requestInfo]
    }
 
    ; Permissions required by client application for the described dependency
    authorizationRequirements = {
-       ? clientId: tstr
-       ? permissions: {+ securityScheme => [+ tstr]}
+       ? clientIdentifier: tstr
+       ? access: [+accessRequest] | [+tstr]
+   }
+
+   accessRequest = {
+       type : tstr ;
+       * tstr => any;
    }
 
    ; Details of a resource request
@@ -230,20 +241,26 @@ Table of Contents
            "name": "Alice",
            "contactEmail": "alice@example.org"
        },
-       "apiDependencies": [
-           {
+       "apiDependencies":
+           "example": {
                "apiDescripionUrl": "https://example.org/openapi.json",
                "auth": {
-                   "clientId": "some-uuid-here",
-                   "permissions": {
-                       "delegated": [
-                           "resourceA.ReadWrite",
-                           "resourceB.ReadWrite"
-                       ],
-                       "application": [
-                           "resourceB.Read"
-                       ]
-                   }
+                   "clientIdentifier": "some-uuid-here",
+                   "access": [
+                       {
+                           "type": "delegated",
+                           "actions": [
+                                       "resourceA.ReadWrite",
+                                       "resourceB.ReadWrite"
+                                   ]
+                       },
+                       {
+                           "type": "application",
+                           "actions": [
+                                       "resourceB.Read"
+                                   ]
+                       }
+                   ]
                },
                "requests": [
                    {
@@ -255,8 +272,7 @@ Table of Contents
                        "uriTemplate": "https://example.org/api/resourceB"
                    }
                ]
-           }
-       ]
+       }
    }
 
 3.  Conventions and Definitions
@@ -331,6 +347,65 @@ Table of Contents
 Acknowledgments
 
    TODO acknowledge.
+
+Appendix
+
+Example for Microsoft Graph API
+
+   {
+       "publisher": {
+           "name": "Alice",
+           "contactEmail": "alice@example.org"
+       },
+       "apiDependencies": [
+           {
+               "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+               "baseUrl": "https://graoh.microsoft.com/v1.0/",
+               "auth": {
+                   "clientIdentifier": "some-uuid-here",
+                   "access": [
+                       {
+                           "type": "openid",
+                           "claims": {
+                               "scp": {
+                                   "essential": true,
+                                   "values": [
+                                       "User.Read",
+                                       "Mail.ReadWrite.All"
+                                   ]
+                               }
+                           }
+                       },
+                       {
+                           "type": "openid",
+                           "claims": {
+                               "roles": { "essential": true,
+                                           "values": [
+                                               "User.Read.All"
+                                           ]
+                               }
+                           }
+                       }
+                   ]
+               },
+               "requests": [
+                   {
+                       "method": "GET",
+                       "uriTemplate": "https://graoh.microsoft.com/v1.0/me"
+                   },
+                   {
+                       "method": "GET",
+                       "uriTemplate": "https://graoh.microsoft.com/v1.0/users/{userId}/messages"
+                   },
+                                   {
+                       "method": "GET",
+                       "uriTemplate": "https://graoh.microsoft.com/v1.0/users"
+                   }
+
+               ]
+           }
+       ]
+   }
 
 Author's Address
 

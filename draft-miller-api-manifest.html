@@ -16,7 +16,7 @@
 <meta content="draft-miller-api-manifest-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.17.1
-    Python 3.10.11
+    Python 3.11.3
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
@@ -25,8 +25,8 @@
     lxml 4.9.2
     pycountry 22.3.5
     PyYAML 6.0
-    requests 2.28.1
-    setuptools 65.6.0
+    requests 2.30.0
+    setuptools 67.7.2
     six 1.16.0
     wcwidth 0.2.6
 -->
@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Miller</td>
-<td class="center">Expires 11 November 2023</td>
+<td class="center">Expires 22 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-miller-api-manifest-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-05-10" class="published">10 May 2023</time>
+<time datetime="2023-05-21" class="published">21 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-11-11">11 November 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-22">22 November 2023</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1115,7 +1115,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1157,7 +1157,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
                 <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-publisher-object" class="internal xref">Publisher Object</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-api-dependency-object" class="internal xref">Api Dependency Object</a></p>
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-api-dependency-object" class="internal xref">API Dependency Object</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4">
                 <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-authorization-requirements-" class="internal xref">Authorization Requirements Object</a></p>
@@ -1183,7 +1183,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-appendix" class="internal xref">Appendix</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-B.1" class="auto internal xref"></a><a href="#name-example-for-microsoft-graph" class="internal xref">Example for Microsoft Graph API</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1226,7 +1234,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-api-manifest" class="section-name selfRef">Api Manifest</a>
         </h3>
 <p id="section-2.1-1">The Api Manifest document contains information about a target application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the <code>application/api-manifest</code> media type.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">An API manifest document contains a <code>appPublisher</code> property that has a value described by the publisher <a href="#publisher" class="auto internal xref">Section 2.2</a> and an array of zero or more Api Dependency <a href="#api-dependency" class="auto internal xref">Section 2.3</a> objects.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">An API manifest document <span class="bcp14">SHOULD</span> contain a <code>appPublisher</code> property that has a value described by the publisher <a href="#publisher" class="auto internal xref">Section 2.2</a> and <span class="bcp14">MUST</span> contain a JSON object that contains of zero or more mappings from a string key to Api Dependency <a href="#api-dependency" class="auto internal xref">Section 2.3</a> objects.  The API Manifest object <span class="bcp14">MUST</span> contain an <code>applicationName</code> string property to uniquely identify the application to users of the API Manifest.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="publisher">
@@ -1234,15 +1242,15 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-publisher-object">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-publisher-object" class="section-name selfRef">Publisher Object</a>
         </h3>
-<p id="section-2.2-1">The publisher object contains a <code>name</code> property that is a JSON string. This string contains a value representing the organization or individual responsible for the application that this api manifest belongs to.  The <code>contactEmail</code> provides a mechanism to communicate information to the publisher.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">The publisher object <span class="bcp14">MUST</span> contain a <code>name</code> property that is a JSON string. This string contains a value representing the organization or individual responsible for the application that this api manifest belongs to.  The <code>contactEmail</code> property <span class="bcp14">MUST</span> provide an email address to communicate information to the publisher of the application being described.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="api-dependency">
 <section id="section-2.3">
         <h3 id="name-api-dependency-object">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-api-dependency-object" class="section-name selfRef">Api Dependency Object</a>
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-api-dependency-object" class="section-name selfRef">API Dependency Object</a>
         </h3>
-<p id="section-2.3-1">Each Api dependency object represents a HTTP API that the target application consumes. The <code>apiDescriptionUrl</code> references an API description document such as an <a href="https://spec.openapis.org/oas/latest.html">OpenAPI</a> description. The <code>auth</code> property contains the requirements for the target application to authorize a call to the HTTP API. The <code>requests</code> property contains a array of <code>requestInfo</code> objects.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">Each API dependency object represents a HTTP API that the target application consumes. The API dependency object <span class="bcp14">MAY</span> contain a <code>apiDescriptionUrl</code> that references an API description document such as an <a href="https://spec.openapis.org/oas/latest.html">OpenAPI</a> description. The <code>auth</code> property contains the requirements for the target application to authorize a call to the HTTP API. The <code>requests</code> property contains a array of <code>requestInfo</code> objects.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authReqirements">
@@ -1264,7 +1272,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 apiManifest = {
     applicationName: tstr
     ? publisher: publisher
-    apiDependencies : [* apiDependency]
+    apiDependencies : {* tstr =&gt; apiDependency}
 }
 
 ; Identification of the application developer / organization
@@ -1275,15 +1283,20 @@ publisher = {
 
 ;  Declaration of application dependencies on HTTP API
 apiDependency = {
-    apiDescriptionUrl: tstr
+    ? apiDescriptionUrl: tstr
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
 }
 
 ; Permissions required by client application for the described dependency
 authorizationRequirements = {
-    ? clientId: tstr
-    ? permissions: {+ securityScheme =&gt; [+ tstr]}
+    ? clientIdentifier: tstr
+    ? access: [+accessRequest] | [+tstr]
+}
+
+accessRequest = {
+    type : tstr ;
+    * tstr =&gt; any;
 }
 
 ; Details of a resource request
@@ -1304,20 +1317,26 @@ requestInfo = {
         "name": "Alice",
         "contactEmail": "alice@example.org"
     },
-    "apiDependencies": [
-        {
+    "apiDependencies":
+        "example": {
             "apiDescripionUrl": "https://example.org/openapi.json",
             "auth": {
-                "clientId": "some-uuid-here",
-                "permissions": {
-                    "delegated": [
-                        "resourceA.ReadWrite",
-                        "resourceB.ReadWrite"
-                    ],
-                    "application": [
-                        "resourceB.Read"
-                    ]
-                }
+                "clientIdentifier": "some-uuid-here",
+                "access": [
+                    {
+                        "type": "delegated",
+                        "actions": [
+                                    "resourceA.ReadWrite",
+                                    "resourceB.ReadWrite"
+                                ]
+                    },
+                    {
+                        "type": "application",
+                        "actions": [
+                                    "resourceB.Read"
+                                ]
+                    }
+                ]
             },
             "requests": [
                 {
@@ -1329,8 +1348,7 @@ requestInfo = {
                     "uriTemplate": "https://example.org/api/resourceB"
                 }
             ]
-        }
-    ]
+    }
 }
 </pre><a href="#section-2.5-4" class="pilcrow">¶</a>
 </div>
@@ -1412,8 +1430,80 @@ Macintosh file type code(s):  n/a
 <p id="appendix-A-1">TODO acknowledge.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="authors-addresses">
+<div id="appendix">
 <section id="appendix-B">
+      <h2 id="name-appendix">
+<a href="#name-appendix" class="section-name selfRef">Appendix</a>
+      </h2>
+<div id="example-for-microsoft-graph-api">
+<section id="appendix-B.1">
+        <h3 id="name-example-for-microsoft-graph">
+<a href="#name-example-for-microsoft-graph" class="section-name selfRef">Example for Microsoft Graph API</a>
+        </h3>
+<div class="breakable lang-json sourcecode" id="appendix-B.1-1">
+<pre>
+{
+    "publisher": {
+        "name": "Alice",
+        "contactEmail": "alice@example.org"
+    },
+    "apiDependencies": [
+        {
+            "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+            "baseUrl": "https://graoh.microsoft.com/v1.0/",
+            "auth": {
+                "clientIdentifier": "some-uuid-here",
+                "access": [
+                    {
+                        "type": "openid",
+                        "claims": {
+                            "scp": {
+                                "essential": true,
+                                "values": [
+                                    "User.Read",
+                                    "Mail.ReadWrite.All"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "openid",
+                        "claims": {
+                            "roles": { "essential": true,
+                                        "values": [
+                                            "User.Read.All"
+                                        ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "requests": [
+                {
+                    "method": "GET",
+                    "uriTemplate": "https://graoh.microsoft.com/v1.0/me"
+                },
+                {
+                    "method": "GET",
+                    "uriTemplate": "https://graoh.microsoft.com/v1.0/users/{userId}/messages"
+                },
+                                {
+                    "method": "GET",
+                    "uriTemplate": "https://graoh.microsoft.com/v1.0/users"
+                }
+
+            ]
+        }
+    ]
+}
+</pre><a href="#appendix-B.1-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-C">
       <h2 id="name-authors-address">
 <a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>
