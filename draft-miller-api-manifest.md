@@ -223,8 +223,10 @@ Change controller:  Internet Engineering Task Force (mailto:iesg@ietf.org).
 TODO acknowledge.
 
 # Appendix
+{:numbered="false"}
 
 ## Example for Microsoft Graph API
+{:numbered="false"}
 
 ~~~ json
 
