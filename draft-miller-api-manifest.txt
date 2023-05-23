@@ -4,8 +4,8 @@
 
 Internet Engineering Task Force                                D. Miller
 Internet-Draft                                                 Microsoft
-Intended status: Standards Track                             21 May 2023
-Expires: 22 November 2023
+Intended status: Standards Track                             23 May 2023
+Expires: 24 November 2023
 
 
                               API Manifest
@@ -24,9 +24,9 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://darrelmiller.github.io/api-manifest/draft-miller-
-   apimanifest.html.  Status information for this document may be found
-   at https://datatracker.ietf.org/doc/draft-miller-api-manifest/.
+   https://darrelmiller.github.io/api-manifest/draft-miller-api-
+   manifest.html.  Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-miller-api-manifest/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/darrelmiller/api-manifest.
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 November 2023.
+   This Internet-Draft will expire on 24 November 2023.
 
 Copyright Notice
 
@@ -352,60 +352,21 @@ Appendix
 
 Example for Microsoft Graph API
 
-   {
-       "publisher": {
-           "name": "Alice",
-           "contactEmail": "alice@example.org"
-       },
-       "apiDependencies": [
-           {
-               "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
-               "baseUrl": "https://graoh.microsoft.com/v1.0/",
-               "auth": {
-                   "clientIdentifier": "some-uuid-here",
-                   "access": [
-                       {
-                           "type": "openid",
-                           "claims": {
-                               "scp": {
-                                   "essential": true,
-                                   "values": [
-                                       "User.Read",
-                                       "Mail.ReadWrite.All"
-                                   ]
-                               }
-                           }
-                       },
-                       {
-                           "type": "openid",
-                           "claims": {
-                               "roles": { "essential": true,
-                                           "values": [
-                                               "User.Read.All"
-                                           ]
-                               }
-                           }
-                       }
-                   ]
-               },
-               "requests": [
-                   {
-                       "method": "GET",
-                       "uriTemplate": "https://graoh.microsoft.com/v1.0/me"
-                   },
-                   {
-                       "method": "GET",
-                       "uriTemplate": "https://graoh.microsoft.com/v1.0/users/{userId}/messages"
-                   },
-                                   {
-                       "method": "GET",
-                       "uriTemplate": "https://graoh.microsoft.com/v1.0/users"
-                   }
+   ~~~ json
 
-               ]
-           }
-       ]
-   }
+   { "publisher": { "name": "Alice", "contactEmail": "alice@example.org"
+   }, "apiDependencies": { "graph": { "apiDescripionUrl":
+   "https://raw.githubusercontent.com/microsoftgraph/msgraph-
+   metadata/master/openapi/v1.0/openapi.yaml", "auth": {
+   "clientIdentifier": "some-uuid-here", "access": [ { "type": "openid",
+   "claims": { "scp": { "essential": true, "values": [ "User.Read",
+   "Mail.ReadWrite.All" ] } } }, { "type": "openid", "claims": {
+   "roles": { "essential": true, "values": [ "User.Read.All" ] } } } ]
+   }, "requests": [ { "method": "GET", "uriTemplate":
+   "https://graoh.microsoft.com/v1.0/me" }, { "method": "GET",
+   "uriTemplate": "https://graoh.microsoft.com/v1.0/
+   users/{userId}/messages" }, { "method": "GET", "uriTemplate":
+   "https://graoh.microsoft.com/v1.0/users" } ] } } }~~~
 
 Author's Address
 
