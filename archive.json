@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-05-21T00:55:20.977343+00:00",
+  "timestamp": "2023-05-23T00:52:11.270725+00:00",
   "repo": "darrelmiller/api-manifest",
   "labels": [
     {
@@ -63,6 +63,22 @@
       "body": "- Should it be a URI?\r\n- Should we support multiple?\r\n- Should we distinguish between inbound and outbound data?",
       "createdAt": "2023-05-10T03:32:39Z",
       "updatedAt": "2023-05-10T03:32:39Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOJNH1SM5mbpbV",
+      "title": "One API Manifest per application, or per API dependency",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/2",
+      "state": "OPEN",
+      "author": "darrelmiller",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "In attempting to use API manifest to create filtered OpenAPI files, it was not obvious how to handle the case where an API Manifest documented multiple API Dependencies. \r\n- Merging multiple OpenAPI descriptions into one file didn't make much sense.\r\n- Outputting 3 files become tricky to control from a command line experience\r\n- Allowing the user to pick which api dependency required some kind of identifier.\r\n\r\nI have tentatively settled on adding a \"name\" property to the API dependency so that users of the API Manifest file can reference the name of an API dependency.  For the original scenario the name will only be required if there are multiple api dependencies.\r\n\r\nCalling it nickname would be ideal, but that feels a bit casual.  I want to be clear that this is not an official name of the API.\r\n\r\nupdate:\r\nChanging ApiDependencies from an array to an object allows us to use a key as an identifier.  This avoids having to pick a name for the property and and ensures the name is required and unique.  The only downside is that it means that the common case of only one dependency forces a name.",
+      "createdAt": "2023-05-21T14:25:38Z",
+      "updatedAt": "2023-05-21T16:00:16Z",
       "closedAt": null,
       "comments": []
     }
