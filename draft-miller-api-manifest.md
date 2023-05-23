@@ -17,7 +17,7 @@ venue:
 #  mail: WG@example.com
 #  arch: https://example.com/WG
   github: "darrelmiller/api-manifest"
-  latest: "https://darrelmiller.github.io/api-manifest/draft-miller-apimanifest.html"
+  latest: "https://darrelmiller.github.io/api-manifest/draft-miller-api-manifest.html"
 
 author:
  -
