@@ -235,10 +235,9 @@ TODO acknowledge.
         "name": "Alice",
         "contactEmail": "alice@example.org"
     },
-    "apiDependencies": [
-        {
+    "apiDependencies": {
+        "graph": {
             "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
-            "baseUrl": "https://graoh.microsoft.com/v1.0/",
             "auth": {
                 "clientIdentifier": "some-uuid-here",
                 "access": [
@@ -257,10 +256,11 @@ TODO acknowledge.
                     {
                         "type": "openid",
                         "claims": {
-                            "roles": { "essential": true,
-                                        "values": [
-                                            "User.Read.All"
-                                        ]
+                            "roles": {
+                                "essential": true,
+                                "values": [
+                                    "User.Read.All"
+                                ]
                             }
                         }
                     }
@@ -275,13 +275,11 @@ TODO acknowledge.
                     "method": "GET",
                     "uriTemplate": "https://graoh.microsoft.com/v1.0/users/{userId}/messages"
                 },
-                                {
+                {
                     "method": "GET",
                     "uriTemplate": "https://graoh.microsoft.com/v1.0/users"
                 }
-
             ]
         }
-    ]
-}
-~~~
+    }
+}~~~
