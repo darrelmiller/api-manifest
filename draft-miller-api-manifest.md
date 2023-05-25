@@ -130,7 +130,7 @@ Example:
         "name": "Alice",
         "contactEmail": "alice@example.org"
     },
-    "apiDependencies":
+    "apiDependencies": {
         "example": {
             "apiDescripionUrl": "https://example.org/openapi.json",
             "auth": {
@@ -151,6 +151,7 @@ Example:
                     }
                 ]
             },
+            "baseUrl": "",
             "requests": [
                 {
                     "method": "GET",
@@ -161,6 +162,7 @@ Example:
                     "uriTemplate": "https://example.org/api/resourceB"
                 }
             ]
+        }
     }
 }
 ~~~
