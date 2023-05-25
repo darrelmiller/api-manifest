@@ -4,8 +4,8 @@
 
 Internet Engineering Task Force                                D. Miller
 Internet-Draft                                                 Microsoft
-Intended status: Standards Track                             23 May 2023
-Expires: 24 November 2023
+Intended status: Standards Track                             25 May 2023
+Expires: 26 November 2023
 
 
                               API Manifest
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 November 2023.
+   This Internet-Draft will expire on 26 November 2023.
 
 Copyright Notice
 
@@ -241,7 +241,7 @@ Table of Contents
            "name": "Alice",
            "contactEmail": "alice@example.org"
        },
-       "apiDependencies":
+       "apiDependencies": {
            "example": {
                "apiDescripionUrl": "https://example.org/openapi.json",
                "auth": {
@@ -262,6 +262,7 @@ Table of Contents
                        }
                    ]
                },
+               "baseUrl": "",
                "requests": [
                    {
                        "method": "GET",
@@ -272,6 +273,7 @@ Table of Contents
                        "uriTemplate": "https://example.org/api/resourceB"
                    }
                ]
+           }
        }
    }
 
