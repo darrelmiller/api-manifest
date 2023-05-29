@@ -1052,7 +1052,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Miller</td>
-<td class="center">Expires 26 November 2023</td>
+<td class="center">Expires 30 November 2023</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-miller-api-manifest-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-05-25" class="published">25 May 2023</time>
+<time datetime="2023-05-29" class="published">29 May 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2023-11-26">26 November 2023</time></dd>
+<dd class="expires"><time datetime="2023-11-30">30 November 2023</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1115,7 +1115,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 26 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 30 November 2023.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1164,6 +1164,9 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.5">
                 <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="auto internal xref">2.5</a>.  <a href="#name-request-info-object" class="internal xref">Request Info Object</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.6">
+                <p id="section-toc.1-1.2.2.6.1"><a href="#section-2.6" class="auto internal xref">2.6</a>.  <a href="#name-extensibility" class="internal xref">Extensibility</a></p>
 </li>
             </ul>
 </li>
@@ -1216,6 +1219,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <li class="normal" id="section-1-3.5">perform dependency checks for updates to APIs in a similar way Dependabot tooling does for package dependencies<a href="#section-1-3.5" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-1-3.6">provide security alerts for APIs that have announced discovered vulnerabilities<a href="#section-1-3.6" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-1-3.7">describe the capabilities of a skill/plugin for a chat-based system<a href="#section-1-3.7" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="section-1-4">It is common for the the person who consents an application to be used, and therefore access data and functionality of HTTP APIs, not be capable of reviewing application source code to understand the details of what an application does. The API manifest can be used to create admin friendly descriptions of application capabilities to simplify the process of application consent.<a href="#section-1-4" class="pilcrow">¶</a></p>
@@ -1273,6 +1278,7 @@ apiManifest = {
     applicationName: tstr
     ? publisher: publisher
     apiDependencies : {* tstr =&gt; apiDependency}
+    extensibility
 }
 
 ; Identification of the application developer / organization
@@ -1286,6 +1292,7 @@ apiDependency = {
     ? apiDescriptionUrl: tstr
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
+    extensibility
 }
 
 ; Permissions required by client application for the described dependency
@@ -1294,6 +1301,9 @@ authorizationRequirements = {
     ? access: [+accessRequest] | [+tstr]
 }
 
+extensibility = (
+    ? extensions =&gt; {* tstr =&gt; any }
+)
 accessRequest = {
     type : tstr ;
     * tstr =&gt; any;
@@ -1354,6 +1364,14 @@ requestInfo = {
 }
 </pre><a href="#section-2.5-4" class="pilcrow">¶</a>
 </div>
+</section>
+</div>
+<div id="extensibility">
+<section id="section-2.6">
+        <h3 id="name-extensibility">
+<a href="#section-2.6" class="section-number selfRef">2.6. </a><a href="#name-extensibility" class="section-name selfRef">Extensibility</a>
+        </h3>
+<p id="section-2.6-1">The API Manifest object and API Dependency object can be extended with additional properties. The <code>extensions</code> member is a map of properties whose values can be any valid JSON member.<a href="#section-2.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

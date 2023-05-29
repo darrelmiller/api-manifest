@@ -4,8 +4,8 @@
 
 Internet Engineering Task Force                                D. Miller
 Internet-Draft                                                 Microsoft
-Intended status: Standards Track                             25 May 2023
-Expires: 26 November 2023
+Intended status: Standards Track                             29 May 2023
+Expires: 30 November 2023
 
 
                               API Manifest
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 November 2023.
+   This Internet-Draft will expire on 30 November 2023.
 
 Copyright Notice
 
@@ -71,6 +71,7 @@ Table of Contents
      2.3.  API Dependency Object
      2.4.  Authorization Requirements Object
      2.5.  Request Info Object
+     2.6.  Extensibility
    3.  Conventions and Definitions
    4.  Security Considerations
    5.  IANA Considerations
@@ -114,6 +115,9 @@ Table of Contents
 
    *  provide security alerts for APIs that have announced discovered
       vulnerabilities
+
+   *  describe the capabilities of a skill/plugin for a chat-based
+      system
 
    It is common for the the person who consents an application to be
    used, and therefore access data and functionality of HTTP APIs, not
@@ -200,6 +204,7 @@ Table of Contents
        applicationName: tstr
        ? publisher: publisher
        apiDependencies : {* tstr => apiDependency}
+       extensibility
    }
 
    ; Identification of the application developer / organization
@@ -213,6 +218,7 @@ Table of Contents
        ? apiDescriptionUrl: tstr
        authorizationRequirements: authorizationRequirements
        requests: [+ requestInfo]
+       extensibility
    }
 
    ; Permissions required by client application for the described dependency
@@ -221,6 +227,9 @@ Table of Contents
        ? access: [+accessRequest] | [+tstr]
    }
 
+   extensibility = (
+       ? extensions => {* tstr => any }
+   )
    accessRequest = {
        type : tstr ;
        * tstr => any;
@@ -276,6 +285,12 @@ Table of Contents
            }
        }
    }
+
+2.6.  Extensibility
+
+   The API Manifest object and API Dependency object can be extended
+   with additional properties.  The extensions member is a map of
+   properties whose values can be any valid JSON member.
 
 3.  Conventions and Definitions
 
