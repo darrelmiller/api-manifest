@@ -70,7 +70,7 @@ The publisher object MUST contain a `name` property that is a JSON string. This 
 
 ## API Dependency Object {#api-dependency}
 
-Each API dependency object represents a HTTP API that the target application consumes. The API dependency object MAY contain a `apiDescriptionUrl` that references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
+Each API dependency object represents a HTTP API that the target application consumes. The API dependency object MAY contain a `apiDescriptionUrl` that references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `apiDescriptionVersion` member can contain the version of the API Description used by the application. This member enables tooling to detect if the referenced API desription is updated. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
 
 ## Authorization Requirements Object {#authReqirements}
 
@@ -98,6 +98,7 @@ publisher = {
 ;  Declaration of application dependencies on HTTP API
 apiDependency = {
     ? apiDescriptionUrl: tstr
+    ? apiDescriptionVersion: tstr
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
     extensibility
@@ -139,6 +140,7 @@ Example:
     "apiDependencies": {
         "example": {
             "apiDescripionUrl": "https://example.org/openapi.json",
+            "apiDescriptionVersion": "1.2",
             "auth": {
                 "clientIdentifier": "some-uuid-here",
                 "access": [
@@ -157,7 +159,6 @@ Example:
                     }
                 ]
             },
-            "baseUrl": "",
             "requests": [
                 {
                     "method": "GET",
