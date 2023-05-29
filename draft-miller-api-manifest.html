@@ -1255,7 +1255,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         <h3 id="name-api-dependency-object">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-api-dependency-object" class="section-name selfRef">API Dependency Object</a>
         </h3>
-<p id="section-2.3-1">Each API dependency object represents a HTTP API that the target application consumes. The API dependency object <span class="bcp14">MAY</span> contain a <code>apiDescriptionUrl</code> that references an API description document such as an <a href="https://spec.openapis.org/oas/latest.html">OpenAPI</a> description. The <code>auth</code> property contains the requirements for the target application to authorize a call to the HTTP API. The <code>requests</code> property contains a array of <code>requestInfo</code> objects.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">Each API dependency object represents a HTTP API that the target application consumes. The API dependency object <span class="bcp14">MAY</span> contain a <code>apiDescriptionUrl</code> that references an API description document such as an <a href="https://spec.openapis.org/oas/latest.html">OpenAPI</a> description. The <code>apiDescriptionVersion</code> member can contain the version of the API Description used by the application. This member enables tooling to detect if the referenced API desription is updated. The <code>auth</code> property contains the requirements for the target application to authorize a call to the HTTP API. The <code>requests</code> property contains a array of <code>requestInfo</code> objects.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authReqirements">
@@ -1290,6 +1290,7 @@ publisher = {
 ;  Declaration of application dependencies on HTTP API
 apiDependency = {
     ? apiDescriptionUrl: tstr
+    ? apiDescriptionVersion: tstr
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
     extensibility
@@ -1330,6 +1331,7 @@ requestInfo = {
     "apiDependencies": {
         "example": {
             "apiDescripionUrl": "https://example.org/openapi.json",
+            "apiDescriptionVersion": "1.2",
             "auth": {
                 "clientIdentifier": "some-uuid-here",
                 "access": [
@@ -1348,7 +1350,6 @@ requestInfo = {
                     }
                 ]
             },
-            "baseUrl": "",
             "requests": [
                 {
                     "method": "GET",
