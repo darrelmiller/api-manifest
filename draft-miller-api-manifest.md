@@ -48,6 +48,7 @@ An API manifest such as described in this document could enable a number of scen
 - use as Signed Statement in Trustworthy and Transparent Digigtal Supply Chains
 - perform dependency checks for updates to APIs in a similar way Dependabot tooling does for package dependencies
 - provide security alerts for APIs that have announced discovered vulnerabilities
+- describe the capabilities of a skill/plugin for a chat-based system
 
 It is common for the the person who consents an application to be used, and therefore access data and functionality of HTTP APIs, not be capable of reviewing application source code to understand the details of what an application does. The API manifest can be used to create admin friendly descriptions of application capabilities to simplify the process of application consent.
 
@@ -85,6 +86,7 @@ apiManifest = {
     applicationName: tstr
     ? publisher: publisher
     apiDependencies : {* tstr => apiDependency}
+    extensibility
 }
 
 ; Identification of the application developer / organization
@@ -98,6 +100,7 @@ apiDependency = {
     ? apiDescriptionUrl: tstr
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
+    extensibility
 }
 
 ; Permissions required by client application for the described dependency
@@ -106,6 +109,9 @@ authorizationRequirements = {
     ? access: [+accessRequest] | [+tstr]
 }
 
+extensibility = (
+    ? extensions => {* tstr => any }
+)
 accessRequest = {
     type : tstr ;
     * tstr => any;
@@ -166,6 +172,10 @@ Example:
     }
 }
 ~~~
+
+## Extensibility
+
+The API Manifest object and API Dependency object can be extended with additional properties. The `extensions` member is a map of properties whose values can be any valid JSON member.
 
 # Conventions and Definitions
 
