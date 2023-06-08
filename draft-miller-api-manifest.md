@@ -62,7 +62,7 @@ By creating an API manifest format independent of the application programming la
 
 The Api Manifest document contains information about a target application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the `application/api-manifest` media type.
 
-An API manifest document SHOULD contain a `appPublisher` property that has a value described by the publisher {{publisher}} and MUST contain a JSON object that contains of zero or more mappings from a string key to Api Dependency {{api-dependency}} objects.  The API Manifest object MUST contain an `applicationName` string property to uniquely identify the application to users of the API Manifest.
+An API manifest document SHOULD contain a `publisher` property that has a value described by the publisher {{publisher}} and MUST contain a JSON object that contains of zero or more mappings from a string key to Api Dependency {{api-dependency}} objects.  The API Manifest object MUST contain an `applicationName` string property to uniquely identify the application to users of the API Manifest.
 
 ## Publisher Object {#publisher}
 
@@ -70,7 +70,7 @@ The publisher object MUST contain a `name` property that is a JSON string. This 
 
 ## API Dependency Object {#api-dependency}
 
-Each API dependency object represents a HTTP API that the target application consumes. The API dependency object MAY contain a `apiDescriptionUrl` that references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `apiDescriptionVersion` member can contain the version of the API Description used by the application. This member enables tooling to detect if the referenced API desription is updated. The `auth` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains a array of `requestInfo` objects.
+Each API dependency object represents an HTTP API that the target application consumes. The API dependency object MAY contain a `apiDescriptionUrl` that references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `apiDescriptionVersion` member can contain the version of the API Description used by the application. This member enables tooling to detect if the referenced API desription is updated. The `authorizationRequirements` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains an array of `requestInfo` objects.
 
 ## Authorization Requirements Object {#authReqirements}
 
@@ -78,7 +78,7 @@ The Authorization Requirements object contains information that is required to a
 
 ## Request Info Object {#requestInfo}
 
-Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify one or more operations defined in the API description referenced in the Api Dependency{{api-dependency}}. The  `excludes` property when set to `true` can be used to eliminate specific operations included by another Request Info {{requestInfo}}. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
+Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify one or more operations defined in the API description referenced in the Api Dependency{{api-dependency}}. The  `exclude` property when set to `true` can be used to eliminate specific operations included by another Request Info {{requestInfo}}. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
 ~~~ cddl
 
