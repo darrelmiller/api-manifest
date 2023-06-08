@@ -50,7 +50,7 @@ An API manifest such as described in this document could enable a number of scen
 - provide security alerts for APIs that have announced discovered vulnerabilities
 - describe the capabilities of a skill/plugin for a chat-based system
 
-It is common for the the person who consents an application to be used, and therefore access data and functionality of HTTP APIs, not be capable of reviewing application source code to understand the details of what an application does. The API manifest can be used to create admin friendly descriptions of application capabilities to simplify the process of application consent.
+It is common for the person who consents to an application to be used, and therefore access data and functionality of HTTP APIs, not be capable of reviewing application source code to understand the details of what an application does. The API manifest can be used to create admin friendly descriptions of application capabilities to simplify the process of application consent.
 
 There are no guarantees that an API manifest accurately describes that capabilities and dependencies of an application. There remains an element of trust. It is not in itself a security artifact. However, it can play an role in enabling tooling as part of a secure supply chain.
 
