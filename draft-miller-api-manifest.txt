@@ -4,8 +4,8 @@
 
 Internet Engineering Task Force                                D. Miller
 Internet-Draft                                                 Microsoft
-Intended status: Standards Track                             29 May 2023
-Expires: 30 November 2023
+Intended status: Standards Track                            10 June 2023
+Expires: 12 December 2023
 
 
                               API Manifest
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 November 2023.
+   This Internet-Draft will expire on 12 December 2023.
 
 Copyright Notice
 
@@ -107,7 +107,7 @@ Table of Contents
    *  identify the scopes or roles that an application must be granted
       to be able to access those resources
 
-   *  use as Signed Statement in Trustworthy and Transparent Digigtal
+   *  use as Signed Statement in Trustworthy and Transparent Digital
       Supply Chains
 
    *  perform dependency checks for updates to APIs in a similar way
@@ -373,21 +373,59 @@ Appendix
 
 Example for Microsoft Graph API
 
-   ~~~ json
-
-   { "publisher": { "name": "Alice", "contactEmail": "alice@example.org"
-   }, "apiDependencies": { "graph": { "apiDescripionUrl":
-   "https://raw.githubusercontent.com/microsoftgraph/msgraph-
-   metadata/master/openapi/v1.0/openapi.yaml", "auth": {
-   "clientIdentifier": "some-uuid-here", "access": [ { "type": "openid",
-   "claims": { "scp": { "essential": true, "values": [ "User.Read",
-   "Mail.ReadWrite.All" ] } } }, { "type": "openid", "claims": {
-   "roles": { "essential": true, "values": [ "User.Read.All" ] } } } ]
-   }, "requests": [ { "method": "GET", "uriTemplate":
-   "https://graoh.microsoft.com/v1.0/me" }, { "method": "GET",
-   "uriTemplate": "https://graoh.microsoft.com/v1.0/
-   users/{userId}/messages" }, { "method": "GET", "uriTemplate":
-   "https://graoh.microsoft.com/v1.0/users" } ] } } }~~~
+   {
+       "publisher": {
+           "name": "Alice",
+           "contactEmail": "alice@example.org"
+       },
+       "apiDependencies": {
+           "graph": {
+               "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+               "auth": {
+                   "clientIdentifier": "some-uuid-here",
+                   "access": [
+                       {
+                           "type": "openid",
+                           "claims": {
+                               "scp": {
+                                   "essential": true,
+                                   "values": [
+                                       "User.Read",
+                                       "Mail.ReadWrite.All"
+                                   ]
+                               }
+                           }
+                       },
+                       {
+                           "type": "openid",
+                           "claims": {
+                               "roles": {
+                                   "essential": true,
+                                   "values": [
+                                       "User.Read.All"
+                                   ]
+                               }
+                           }
+                       }
+                   ]
+               },
+               "requests": [
+                   {
+                       "method": "GET",
+                       "uriTemplate": "https://graoh.microsoft.com/v1.0/me"
+                   },
+                   {
+                       "method": "GET",
+                       "uriTemplate": "https://graoh.microsoft.com/v1.0/users/{userId}/messages"
+                   },
+                   {
+                       "method": "GET",
+                       "uriTemplate": "https://graoh.microsoft.com/v1.0/users"
+                   }
+               ]
+           }
+       }
+   }
 
 Author's Address
 
