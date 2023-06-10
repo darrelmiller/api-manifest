@@ -45,7 +45,7 @@ An API manifest such as described in this document could enable a number of scen
 - generate a minimal set of client code that can be used to access the specified resources
 - define API subsets for API gateways
 - identify the scopes or roles that an application must be granted to be able to access those resources
-- use as Signed Statement in Trustworthy and Transparent Digigtal Supply Chains
+- use as Signed Statement in Trustworthy and Transparent Digital Supply Chains
 - perform dependency checks for updates to APIs in a similar way Dependabot tooling does for package dependencies
 - provide security alerts for APIs that have announced discovered vulnerabilities
 - describe the capabilities of a skill/plugin for a chat-based system
@@ -295,4 +295,5 @@ TODO acknowledge.
             ]
         }
     }
-}~~~
+}
+~~~
