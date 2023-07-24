@@ -2,6 +2,9 @@
 title: "API Manifest"
 category: std
 docname: draft-miller-api-manifest-latest
+date: {DATE}
+category:info
+
 ipr: trust200902
 submissiontype: IETF
 v: 3
@@ -78,7 +81,7 @@ The Authorization Requirements object contains information that is required to a
 
 ## Request Info Object {#requestInfo}
 
-Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency{{api-dependency}}. If the API Dependency{{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
+Each Request Info object contains a `uriTemplate` {{!RFC6570}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency{{api-dependency}}. If the API Dependency{{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
 ~~~ cddl
 
@@ -201,7 +204,7 @@ Required parameters:  n/a
 
 Optional parameters:  n/a
 
-Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type.  See [RFC7159].
+Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type.  See {{!RFC7159}}.
 
 Security considerations:  TBD.
 
