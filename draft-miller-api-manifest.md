@@ -60,7 +60,7 @@ By creating an API manifest format independent of the application programming la
 
 ## Api Manifest {#api-manifest}
 
-The Api Manifest document contains information about a target application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the `application/api-manifest` media type.
+The Api Manifest document contains information about an application that consumes HTTP APIs. The canonical model for an API Manifest document is a JSON object. When serialized as JSON it can be identified by the `application/api-manifest` media type.
 
 An API manifest document SHOULD contain a `appPublisher` property that has a value described by the publisher {{publisher}} and MUST contain a JSON object that contains of zero or more mappings from a string key to Api Dependency {{api-dependency}} objects.  The API Manifest object MUST contain an `applicationName` string property to uniquely identify the application to users of the API Manifest.
 
@@ -78,7 +78,7 @@ The Authorization Requirements object contains information that is required to a
 
 ## Request Info Object {#requestInfo}
 
-Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify one or more operations defined in the API description referenced in the Api Dependency{{api-dependency}}. The  `excludes` property when set to `true` can be used to eliminate specific operations included by another Request Info {{requestInfo}}. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
+Each Request Info object contains a `uriTemplate` [RFC6570] and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency{{api-dependency}}. If the API Dependency{{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
 ~~~ cddl
 
@@ -99,6 +99,7 @@ publisher = {
 apiDependency = {
     ? apiDescriptionUrl: tstr
     ? apiDescriptionVersion: tstr
+    ? apiDeploymentBaseUrl: tstr
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
     extensibility
@@ -122,7 +123,6 @@ accessRequest = {
 requestInfo = {
     method: tstr
     uriTemplate: tstr
-    ? exclude: bool
     ? dataClassification: [* tstr]
 }
 
@@ -139,8 +139,9 @@ Example:
     },
     "apiDependencies": {
         "example": {
-            "apiDescripionUrl": "https://example.org/openapi.json",
+            "apiDescriptionUrl": "https://example.org/openapi.json",
             "apiDescriptionVersion": "1.2",
+            "apiDeploymentBaseUrl": "https://example.org/",
             "auth": {
                 "clientIdentifier": "some-uuid-here",
                 "access": [
@@ -162,11 +163,11 @@ Example:
             "requests": [
                 {
                     "method": "GET",
-                    "uriTemplate": "https://example.org/api/resourceA"
+                    "uriTemplate": "/api/resourceA"
                 },
                 {
                     "method": "GET",
-                    "uriTemplate": "https://example.org/api/resourceB"
+                    "uriTemplate": "/api/resourceB"
                 }
             ]
         }
@@ -190,11 +191,11 @@ TODO Security
 
 # IANA Considerations
 
-This document document registers the `application/api-manifest+json` media type.
+This document document registers the `application/api-manifest` media type.
 
 Type name:  application
 
-Subtype name:  api-manifest+json
+Subtype name:  api-manifest
 
 Required parameters:  n/a
 
@@ -251,6 +252,7 @@ TODO acknowledge.
     "apiDependencies": {
         "graph": {
             "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+            "apiDeploymentBaseUrl": "https://graph.microsoft.com/v1.0/",
             "auth": {
                 "clientIdentifier": "some-uuid-here",
                 "access": [
@@ -282,15 +284,15 @@ TODO acknowledge.
             "requests": [
                 {
                     "method": "GET",
-                    "uriTemplate": "https://graoh.microsoft.com/v1.0/me"
+                    "uriTemplate": "me"
                 },
                 {
                     "method": "GET",
-                    "uriTemplate": "https://graoh.microsoft.com/v1.0/users/{userId}/messages"
+                    "uriTemplate": "users/{userId}/messages"
                 },
                 {
                     "method": "GET",
-                    "uriTemplate": "https://graoh.microsoft.com/v1.0/users"
+                    "uriTemplate": "users"
                 }
             ]
         }
