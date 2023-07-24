@@ -145,7 +145,7 @@ Example:
             "apiDescriptionUrl": "https://example.org/openapi.json",
             "apiDescriptionVersion": "1.2",
             "apiDeploymentBaseUrl": "https://example.org/",
-            "auth": {
+            "authorizationRequirements": {
                 "clientIdentifier": "some-uuid-here",
                 "access": [
                     {
@@ -256,7 +256,7 @@ TODO acknowledge.
         "graph": {
             "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
             "apiDeploymentBaseUrl": "https://graph.microsoft.com/v1.0/",
-            "auth": {
+            "authorizationRequirements": {
                 "clientIdentifier": "some-uuid-here",
                 "access": [
                     {
