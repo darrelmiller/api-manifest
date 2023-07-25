@@ -3,7 +3,7 @@ title: "API Manifest"
 category: std
 docname: draft-miller-api-manifest-latest
 date: {DATE}
-category:info
+category: info
 
 ipr: trust200902
 submissiontype: IETF
@@ -21,6 +21,9 @@ venue:
 #  arch: https://example.com/WG
   github: "darrelmiller/api-manifest"
   latest: "https://darrelmiller.github.io/api-manifest/draft-miller-api-manifest.html"
+
+stand_alone: yes
+pi: [toc, tocindent, sortrefs, symrefs, strict, compact, comments, inline]
 
 author:
  -
