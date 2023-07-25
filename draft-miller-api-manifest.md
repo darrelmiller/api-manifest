@@ -29,7 +29,7 @@ author:
     organization: Microsoft
     email: darrel.miller@microsoft.com
 
-normative:
+normative: URITEMPLATE:RFC6570 JSON:RFC7159:
 
 informative:
 
@@ -81,7 +81,7 @@ The Authorization Requirements object contains information that is required to a
 
 ## Request Info Object {#requestInfo}
 
-Each Request Info object contains a `uriTemplate` {{!RFC6570}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency{{api-dependency}}. If the API Dependency{{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
+Each Request Info object contains a `uriTemplate` {{URITEMPLATE}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency{{api-dependency}}. If the API Dependency{{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
 ~~~ cddl
 
@@ -204,7 +204,7 @@ Required parameters:  n/a
 
 Optional parameters:  n/a
 
-Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type.  See {{!RFC7159}}.
+Encoding considerations:  Encoding considerations are identical to those specified for the "application/json" media type.  See {{JSON}}.
 
 Security considerations:  TBD.
 
