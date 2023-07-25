@@ -29,7 +29,9 @@ author:
     organization: Microsoft
     email: darrel.miller@microsoft.com
 
-normative: URITEMPLATE:RFC6570 JSON:RFC7159:
+normative:
+  URITEMPLATE: RFC6570
+  JSON: RFC7159
 
 informative:
 
