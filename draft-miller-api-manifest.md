@@ -61,9 +61,9 @@ An API manifest such as described in this document could enable a number of scen
 
 It is common for the person who consents to an application to be used, and therefore access data and functionality of HTTP APIs, not be capable of reviewing application source code to understand the details of what an application does. The API manifest can be used to create admin friendly descriptions of application capabilities to simplify the process of application consent.
 
-There are no guarantees that an API manifest accurately describes that capabilities and dependencies of an application. There remains an element of trust. It is not in itself a security artifact. However, it can play an role in enabling tooling as part of a secure supply chain.
+There are no guarantees that an API manifest accurately describes capabilities and dependencies of an application. There remains an element of trust. It is not in itself a security artifact. However, it can play a role in enabling tooling as part of a secure supply chain.
 
-By creating an API manifest format independent of the application programming language tooling that consumes the API manifest can be created in any programming language. Language specific tooling could be created to generate API manifests by introspecting application code.  Tooling could be created to produce API manifests to support  design first methodologies, or integration centric scenarios.
+By creating an API manifest format independent of the application programming language tooling that consumes the API manifest can be created in any programming language. Language specific tooling could be created to generate API manifests by introspecting application code.  Tooling could be created to produce API manifests to support design first methodologies, or integration centric scenarios.
 
 # Schema
 
@@ -87,14 +87,14 @@ The Authorization Requirements object contains information that is required to a
 
 ## Request Info Object {#requestInfo}
 
-Each Request Info object MUST contain a `uriTemplate` {{URITEMPLATE}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency{{api-dependency}}. If the API Dependency{{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
+Each Request Info object MUST contain a `uriTemplate` {{URITEMPLATE}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency {{api-dependency}}. If the API Dependency {{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
 ~~~ cddl
 
 apiManifest = {
     applicationName: tstr
     ? publisher: publisher
-    apiDependencies : {* tstr => apiDependency}
+    apiDependencies: {* tstr => apiDependency}
     extensibility
 }
 
@@ -104,7 +104,7 @@ publisher = {
     contactEmail: tstr
 }
 
-;  Declaration of application dependencies on HTTP API
+; Declaration of application dependencies on HTTP API
 apiDependency = {
     ? apiDescriptionUrl: tstr
     ? apiDescriptionVersion: tstr
