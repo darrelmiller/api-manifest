@@ -81,7 +81,7 @@ The publisher object MUST contain a `name` property that is a JSON string. This 
 
 Each API dependency object represents an HTTP API that the target application consumes. The API dependency object MAY contain a `apiDescriptionUrl` that references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `apiDeploymentBaseUrl` member MAY contain the base URL to use in combination with request info{{requestInfo}} `uriTemplate` properties. When the base url is used, it MUST match one of the servers entries in the OpenAPI description.  The `apiDescriptionVersion` member can contain the version of the API Description used by the application. This member enables tooling to detect if the referenced API description is updated. The `authorizationRequirements` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains an array of `requestInfo` objects.
 
-## Authorization Requirements Object {#authReqirements}
+## Authorization Requirements Object {#authRequirements}
 
 The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency `requests` property. The `clientId` property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The `access` property is a JSON object that has the structure and semantics of the `authorization_details` defined in {{RAR}} that are required to perform the complete set of requests defined in the Api Dependency {{api-dependency}}. The Api Manifest does not attempt to correlate which permission is required for a specific request. It is assumed that the application must be granted the complete set of permissions in order to perform its function.
 
@@ -260,7 +260,7 @@ TODO acknowledge.
     },
     "apiDependencies": {
         "graph": {
-            "apiDescripionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+            "apiDescriptionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
             "apiDeploymentBaseUrl": "https://graph.microsoft.com/v1.0/",
             "authorizationRequirements": {
                 "clientIdentifier": "some-uuid-here",
