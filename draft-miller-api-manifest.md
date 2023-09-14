@@ -84,7 +84,7 @@ The combined base URL with the request UriTemplate SHOULD match a resource ident
 
 ## Authorization Requirements Object {#authRequirements}
 
-The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency `requests` property. The `clientId` property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The `access` property is a JSON object that has the structure and semantics of the `authorization_details` defined in {{RAR}} that are required to perform the complete set of requests defined in the Api Dependency {{api-dependency}}. The Api Manifest does not attempt to correlate which permission is required for a specific request. It is assumed that the application must be granted the complete set of permissions in order to perform its function.
+The Authorization Requirements object contains information that is required to authorize the application to perform the requests listed in the Api Dependency `requests` property. The `clientIdentifier` property is a JSON string value used to identify the application to an OAuth2 authorization server for APIs that use OAuth2 for authorization. The `access` property is a JSON object that has the structure and semantics of the `authorization_details` defined in {{RAR}} that are required to perform the complete set of requests defined in the Api Dependency {{api-dependency}}. The Api Manifest does not attempt to correlate which permission is required for a specific request. It is assumed that the application must be granted the complete set of permissions in order to perform its function.
 
 ## Request Info Object {#requestInfo}
 
