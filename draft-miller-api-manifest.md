@@ -118,6 +118,12 @@ The Request Constraint Object contains a `type` property that is a JSON String. 
 
 Data Transform objects contain a `type` property that identifies a data transformation process that the runtime engine SHOULD understand.  The `config` property is used to provide additional information for the runtime engine to perform the transformation of either the API request or response.
 
+## Extensibility
+
+The API Manifest object and API Dependency object can be extended with additional properties. The `extensions` member is a map of properties whose values can be any valid JSON member.
+
+## CDDL Schema
+
 ~~~ cddl
 
 apiManifest = {
@@ -248,9 +254,6 @@ Example:
 }
 ~~~
 
-## Extensibility
-
-The API Manifest object and API Dependency object can be extended with additional properties. The `extensions` member is a map of properties whose values can be any valid JSON member.
 
 # Conventions and Definitions
 
