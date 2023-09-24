@@ -110,11 +110,11 @@ The `inputTranforms` property has an array of Data Transform objects {{dataTrans
 
 The `ouputTranforms` property has an array of Data Transform objects {{dataTransform}} that the runtime engine can use to manipulate HTTP response representations into a format suitable for consumption by the runtime engine.
 
-## Request Constraint Object (#requestConstraint)
+## Request Constraint Object {#requestConstraint}
 
 The Request Constraint Object contains a `type` property that is a JSON String. The value SHOULD be understood by the runtime engine in order to limit when the runtime engine will make a HTTP request to the API. If the property `mandatory` is set to `true` then the runtime engine MUST understand the value of the `type` property and respect the semantics of the constraint.  Additional configuration information can be provided in the `config` property to assist the runtime engine in evaluating the constraint.
 
-## Data Transform Object (#dataTransform)
+## Data Transform Object {#dataTransform}
 
 Data Transform objects contain a `type` property that identifies a data transformation process that the runtime engine SHOULD understand.  The `config` property is used to provide additional information for the runtime engine to perform the transformation of either the API request or response.
 
@@ -442,13 +442,13 @@ TODO acknowledge.
                             "inputTransforms": [
                                 {
                                     "type": "jsonSchemaForm",
-                                    "config": {}  // Additional metadata
+                                    "config": {}
                                 },
                             ],
                             "outputTransforms": [
                                 {
                                     "type": "adaptiveCard",
-                                    "config": {}  // AdaptiveCard definition
+                                    "config": {}
                                 }
                             ]
                         }
