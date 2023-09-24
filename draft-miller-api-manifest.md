@@ -41,13 +41,13 @@ informative:
 
 
 --- abstract
-This document defines an "api manifest" as a way to declare the dependencies that an application has on HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information.
+This document defines an "api manifest" as a way to declare the dependencies that an application has on one or more HTTP APIs. It contains characteristics of those dependencies including links to API descriptions, specifics of the types of HTTP API requests made by the application and related authorization information. It can optionally include information that target specific existing applications to enhance their ability to dynamically interact with an API without a priori knowledge.
 
 --- middle
 
 # Introduction
 
-Applications frequently rely on HTTP APIs to provide functionality to users. Currently, there are limited options for developers to be able to describe those dependencies and options that do exist do not have sufficiently detailed information to enable some of the desired scenarios. By contrast, there does exist declarative, machine readable files, that describe the dependencies that applications have on code libraries and packages. These files have enabled an ecosystem of tooling related to checking, adding, updating and reporting on dependencies. This specification defines a machine processable format to enable a programming language agnostic tooling ecosystem be built around the dependencies applications have on HTTP APIs.
+Applications frequently rely on HTTP APIs to provide functionality to users. Currently, there are limited options for developers to be able to describe those dependencies and the options that do exist do not have sufficiently detailed information to enable some of the desired scenarios. By contrast, there does exist declarative, machine readable files, that describe the dependencies that applications have on code libraries and packages. These files have enabled an ecosystem of tooling related to checking, adding, updating and reporting on dependencies. This specification defines a machine processable format to enable a programming language agnostic tooling ecosystem be built around the dependencies applications have on HTTP APIs.
 
 An API manifest such as described in this document could enable a number of scenarios:
 
@@ -64,6 +64,8 @@ It is common for the person who consents to an application to be used, and there
 There are no guarantees that an API manifest accurately describes capabilities and dependencies of an application. There remains an element of trust. It is not in itself a security artifact. However, it can play a role in enabling tooling as part of a secure supply chain.
 
 By creating an API manifest format independent of the application programming language tooling that consumes the API manifest can be created in any programming language. Language specific tooling could be created to generate API manifests by introspecting application code.  Tooling could be created to produce API manifests to support design first methodologies, or integration centric scenarios.
+
+Not all applications have static dependencies on HTTP APIs. Products have been build that can dynamically discover how to call APIs based on API descriptions. An API Manifest can be used as an input to these kinds of products to teach them how to consume new APIs at runtime.
 
 # Schema
 
@@ -90,26 +92,58 @@ The Authorization Requirements object contains information that is required to a
 
 Each Request Info object MUST contain a `uriTemplate` {{URITEMPLATE}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency {{api-dependency}}. If the API Dependency {{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
+Request Info objects can optionally contain a `runtimes` property which is a JSON object that represents a map of Runtime objects {{runtime}}. Each Runtime object provides a set of additional information to guide specifically identified runtime engines about when and how they can make HTTP requests. Each key in the map should uniquely target a runtime engine. Keys MUST NOT start with the underscore ('_') character to reserve room for a future option to identify standardized runtimes in an IANA registry.
+
+## Runtime Object {#runtime}
+
+Runtime objects contain three optional properties that are JSON arrays. If the property is present the array MUST contain at least one value.
+
+### constraints property
+
+The `constraints` property has an array of Request Constraint objects {{requestConstraint}} that the runtime engine can use to determine when it is allowed to make the request.
+
+### inputTransforms property
+
+The `inputTranforms` property has an array of Data Transform objects {{dataTransform}} that the runtime engine can use to manipulate input values into a format compatible with the API request.
+
+### outputTransforms property
+
+The `ouputTranforms` property has an array of Data Transform objects {{dataTransform}} that the runtime engine can use to manipulate HTTP response representations into a format suitable for consumption by the runtime engine.
+
+## Request Constraint Object {#requestConstraint}
+
+The Request Constraint Object contains a `type` property that is a JSON String. The value SHOULD be understood by the runtime engine in order to limit when the runtime engine will make a HTTP request to the API. If the property `mandatory` is set to `true` then the runtime engine MUST understand the value of the `type` property and respect the semantics of the constraint.  Additional configuration information can be provided in the `config` property to assist the runtime engine in evaluating the constraint.
+
+## Data Transform Object {#dataTransform}
+
+Data Transform objects contain a `type` property that identifies a data transformation process that the runtime engine SHOULD understand.  The `config` property is used to provide additional information for the runtime engine to perform the transformation of either the API request or response.
+
+## Extensibility
+
+The API Manifest object and API Dependency object can be extended with additional properties. The `extensions` member is a map of properties whose values can be any valid JSON member.
+
+## CDDL Schema
+
 ~~~ cddl
 
 apiManifest = {
-    applicationName: tstr
+    applicationName: text
     ? publisher: publisher
-    apiDependencies: {* tstr => apiDependency}
+    apiDependencies: {* text => apiDependency}
     extensibility
 }
 
 ; Identification of the application developer / organization
 publisher = {
-    name: tstr
-    contactEmail: tstr
+    name: text
+    contactEmail: text
 }
 
 ; Declaration of application dependencies on HTTP API
 apiDependency = {
-    ? apiDescriptionUrl: tstr
-    ? apiDescriptionVersion: tstr
-    ? apiDeploymentBaseUrl: tstr
+    ? apiDescriptionUrl: text
+    ? apiDescriptionVersion: text
+    ? apiDeploymentBaseUrl: text
     authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
     extensibility
@@ -117,23 +151,41 @@ apiDependency = {
 
 ; Permissions required by client application for the described dependency
 authorizationRequirements = {
-    ? clientIdentifier: tstr
-    ? access: [+accessRequest] | [+tstr]
+    ? clientIdentifier: text
+    ? access: [+accessRequest] | [+text]
 }
 
 extensibility = (
-    ? extensions => {* tstr => any }
+    ? extensions => {* text => any }
 )
 accessRequest = {
-    type : tstr ;
-    * tstr => any;
+    type : text ;
+    * text => any;
 }
 
 ; Details of a resource request
 requestInfo = {
-    method: tstr
-    uriTemplate: tstr
-    ? dataClassification: [* tstr]
+    method: text
+    uriTemplate: text
+    ? dataClassification: [* text]
+    runtimes : {* text => runtime }
+}
+
+runtime = {
+    ? constraints: [+ requestConstraint] ; constraints that MUST/SHOULD be met before performing request
+    ? inputTransforms: [+ dataTransform]
+    ? outputTransforms: [+ dataTransform]
+}
+
+requestConstraint = {
+    name: text
+    mandatory: bool ; This property allows new constraints to be introduced in a non breaking way.
+}
+
+dataTransform = {
+    type: text;
+    config: any;
+    examples: [* text]
 }
 
 ~~~
@@ -176,8 +228,25 @@ Example:
                     "uriTemplate": "/api/resourceA"
                 },
                 {
-                    "method": "GET",
-                    "uriTemplate": "/api/resourceB"
+                    "method": "POST",
+                    "uriTemplate": "/api/resourceB",
+                    "runtime": {
+                        "someWorkflowEngine": {
+                            "constraints": [
+                                {
+                                    "type": "weekendsOnly"
+                                }
+                            ],
+                            "outputTransforms": [
+                                {
+                                    "type": "xslt",
+                                    "config": {
+                                        "transformFile": "toHtml.xslt"
+                                    }
+                                }
+                            ]
+                        }
+                    }
                 }
             ]
         }
@@ -185,9 +254,6 @@ Example:
 }
 ~~~
 
-## Extensibility
-
-The API Manifest object and API Dependency object can be extended with additional properties. The `extensions` member is a map of properties whose values can be any valid JSON member.
 
 # Conventions and Definitions
 
@@ -303,6 +369,93 @@ TODO acknowledge.
                 {
                     "method": "GET",
                     "uriTemplate": "users"
+                }
+            ]
+        }
+    }
+}
+~~~
+
+## Example for dynamic usage
+{:numbered="false"}
+
+~~~ json
+
+{
+    "publisher": {
+        "name": "Alice",
+        "contactEmail": "alice@example.org"
+    },
+    "apiDependencies": {
+        "graph": {
+            "apiDescriptionUrl": "https://raw.githubusercontent.com/microsoftgraph/msgraph-metadata/master/openapi/v1.0/openapi.yaml",
+            "apiDeploymentBaseUrl": "https://graph.microsoft.com/v1.0/",
+            "authorizationRequirements": {
+                "clientIdentifier": "some-uuid-here",
+                "access": [
+                    {
+                        "type": "openid",
+                        "claims": {
+                            "scp": {
+                                "essential": true,
+                                "values": [
+                                    "User.Read",
+                                    "Mail.ReadWrite.All"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "openid",
+                        "claims": {
+                            "roles": {
+                                "essential": true,
+                                "values": [
+                                    "User.Read.All"
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            "requests": [
+                {
+                    "method": "GET",
+                    "uriTemplate": "me"
+                },
+                {
+                    "method": "GET",
+                    "uriTemplate": "users/{userId}/messages"
+                },
+                {
+                    "method": "GET",
+                    "uriTemplate": "users"
+                },
+                {
+                    "method": "POST",
+                    "uriTemplate": "users/{userId}/sendmail",
+                    "runtimes": {
+                        "powerAutomate": {
+                            "constraints": [
+                                {
+                                    "name": "userConfirmation",
+                                    "mandatory": true
+                                }
+                            ],
+                            "inputTransforms": [
+                                {
+                                    "type": "jsonSchemaForm",
+                                    "config": {}
+                                },
+                            ],
+                            "outputTransforms": [
+                                {
+                                    "type": "adaptiveCard",
+                                    "config": {}
+                                }
+                            ]
+                        }
+                    }
                 }
             ]
         }
