@@ -92,7 +92,7 @@ The Authorization Requirements object contains information that is required to a
 
 Each Request Info object MUST contain a `uriTemplate` {{URITEMPLATE}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency {{api-dependency}}. If the API Dependency {{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
-Request Info objects can optionally contain a `runtimes` property which is a JSON object that represents a map of Runtime objects {{runtime}}. Each Runtime object provides a set of additional information to guide specifically identified runtime engines about when and how they can make HTTP requests. Each key in the map SHOULD be registered in the IANA API Manifest Runtime registry that is created by this specification.
+Request Info objects can optionally contain a `runtimes` property which is a JSON object that represents a map of Runtime objects {{runtime}}. Each Runtime object provides a set of additional information to guide specifically identified runtime engines about when and how they can make HTTP requests. Each key in the map should uniquely target a runtime engine. Keys MUST NOT start with the underscore ('_') character to reserve room for a future option to identify standardized runtimes in an IANA registry.
 
 ## Runtime Object {#runtime}
 
