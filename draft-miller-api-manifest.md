@@ -92,6 +92,32 @@ The Authorization Requirements object contains information that is required to a
 
 Each Request Info object MUST contain a `uriTemplate` {{URITEMPLATE}} and a corresponding HTTP `method`. The values are used to identify an operation defined in the API description referenced in the Api Dependency {{api-dependency}}. If the API Dependency {{api-dependency}} contains a `apiDeploymentBaseUrl` then uriTemplate values that resolve to a relative reference MUST be relative to the `apiDeploymentBaseUrl`. The `dataClassification` property is a list of URIs used to indicate privacy classifications of the data being transmitted via the HTTP request.
 
+Request Info objects can optionally contain a `runtimes` property which is a JSON object that represents a map of Runtime objects {{runtime}}. Each Runtime object provides a set of additional information to guide specifically identified runtime engines about when and how they can make HTTP requests. Each key in the map SHOULD be registered in the IANA API Manifest Runtime registry that is created by this specification.
+
+## Runtime Object {#runtime}
+
+Runtime objects contain three optional properties that are JSON arrays. If the property is present the array MUST contain at least one value.
+
+### constraints property
+
+The `constraints` property has an array of Request Constraint objects {{requestConstraint}} that the runtime engine can use to determine when it is allowed to make the request.
+
+### inputTransforms property
+
+The `inputTranforms` property has an array of Data Transform objects {{dataTransform}} that the runtime engine can use to manipulate input values into a format compatible with the API request.
+
+### outputTransforms property
+
+The `ouputTranforms` property has an array of Data Transform objects {{dataTransform}} that the runtime engine can use to manipulate HTTP response representations into a format suitable for consumption by the runtime engine.
+
+## Request Constraint Object (#requestConstraint)
+
+The Request Constraint Object contains a `type` property that is a JSON String. The value SHOULD be understood by the runtime engine in order to limit when the runtime engine will make a HTTP request to the API. If the property `mandatory` is set to `true` then the runtime engine MUST understand the value of the `type` property and respect the semantics of the constraint.  Additional configuration information can be provided in the `config` property to assist the runtime engine in evaluating the constraint.
+
+## Data Transform Object (#dataTransform)
+
+Data Transform objects contain a `type` property that identifies a data transformation process that the runtime engine SHOULD understand.  The `config` property is used to provide additional information for the runtime engine to perform the transformation of either the API request or response.
+
 ~~~ cddl
 
 apiManifest = {
@@ -136,18 +162,18 @@ requestInfo = {
     method: text
     uriTemplate: text
     ? dataClassification: [* text]
-    runtimes : {* text => runtimeConfiguration }
+    runtimes : {* text => runtime }
 }
 
-runtimeConfiguration = {
-    constraints: [* requestConstraint] ; constraints that MUST/SHOULD be met before performing request
-    inputTransforms: [* dataTransform]
-    outputTransforms: [* dataTransform]
+runtime = {
+    ? constraints: [+ requestConstraint] ; constraints that MUST/SHOULD be met before performing request
+    ? inputTransforms: [+ dataTransform]
+    ? outputTransforms: [+ dataTransform]
 }
 
 requestConstraint = {
     name: text
-    mandatory: boolean ; This property allows new constraints to be introduced in a non breaking way.
+    mandatory: bool ; This property allows new constraints to be introduced in a non breaking way.
 }
 
 dataTransform = {
@@ -196,8 +222,25 @@ Example:
                     "uriTemplate": "/api/resourceA"
                 },
                 {
-                    "method": "GET",
-                    "uriTemplate": "/api/resourceB"
+                    "method": "POST",
+                    "uriTemplate": "/api/resourceB",
+                    "runtime": {
+                        "someWorkflowEngine": {
+                            "constraints": [
+                                {
+                                    "type": "weekendsOnly"
+                                }
+                            ],
+                            "outputTransforms": [
+                                {
+                                    "type": "xslt",
+                                    "config": {
+                                        "transformFile": "toHtml.xslt"
+                                    }
+                                }
+                            ]
+                        }
+                    }
                 }
             ]
         }
