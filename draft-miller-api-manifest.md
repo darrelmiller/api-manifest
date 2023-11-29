@@ -80,7 +80,7 @@ The publisher object MUST contain a `name` property that is a JSON string. This 
 ## API Dependency Object {#api-dependency}
 
 Each API dependency object represents an HTTP API that the target application consumes. The API dependency object MAY contain a `apiDescriptionUrl` that references an API description document such as an [OpenAPI](https://spec.openapis.org/oas/latest.html) description. The `apiDeploymentBaseUrl` member MAY contain the base URL to use in combination with request info{{requestInfo}} `uriTemplate` properties. When the base URL is used, it MUST end with a trailing slash.
-The combined base URL with the request UriTemplate SHOULD match a resource identified in the API description. The `apiDescriptionVersion` member can contain the version of the API Description used by the application. This member enables tooling to detect if the referenced API description is updated. The `authorizationRequirements` property contains the requirements for the target application to authorize a call to the HTTP API. The `requests` property contains an array of `requestInfo` objects.
+The combined base URL with the request UriTemplate SHOULD match a resource identified in the API description. The `apiDescriptionVersion` member can contain the version of the API Description used by the application. This member enables tooling to detect if the referenced API description is updated. The API dependency object MAY contain an `authorizationRequirements` property that specifies the requirements for the target application to authorize a call to the HTTP API. The API dependency object MUST contain a `requests` property that contains an array of one or more `requestInfo` objects.
 
 ## Authorization Requirements Object {#authRequirements}
 
@@ -110,7 +110,7 @@ apiDependency = {
     ? apiDescriptionUrl: tstr
     ? apiDescriptionVersion: tstr
     ? apiDeploymentBaseUrl: tstr
-    authorizationRequirements: authorizationRequirements
+    ? authorizationRequirements: authorizationRequirements
     requests: [+ requestInfo]
     extensibility
 }
