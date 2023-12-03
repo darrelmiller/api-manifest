@@ -1,0 +1,610 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-12-03T00:50:50.121269+00:00",
+  "repo": "darrelmiller/api-manifest",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJNH1SM5lgqZ4",
+      "title": "dataClassification questions",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/1",
+      "state": "OPEN",
+      "author": "darrelmiller",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "- Should it be a URI?\r\n- Should we support multiple?\r\n- Should we distinguish between inbound and outbound data?",
+      "createdAt": "2023-05-10T03:32:39Z",
+      "updatedAt": "2023-05-10T03:32:39Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOJNH1SM5mbpbV",
+      "title": "One API Manifest per application, or per API dependency",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/2",
+      "state": "OPEN",
+      "author": "darrelmiller",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "In attempting to use API manifest to create filtered OpenAPI files, it was not obvious how to handle the case where an API Manifest documented multiple API Dependencies. \r\n- Merging multiple OpenAPI descriptions into one file didn't make much sense.\r\n- Outputting 3 files become tricky to control from a command line experience\r\n- Allowing the user to pick which api dependency required some kind of identifier.\r\n\r\nI have tentatively settled on adding a \"name\" property to the API dependency so that users of the API Manifest file can reference the name of an API dependency.  For the original scenario the name will only be required if there are multiple api dependencies.\r\n\r\nCalling it nickname would be ideal, but that feels a bit casual.  I want to be clear that this is not an official name of the API.\r\n\r\nupdate:\r\nChanging ApiDependencies from an array to an object allows us to use a key as an identifier.  This avoids having to pick a name for the property and and ensures the name is required and unique.  The only downside is that it means that the common case of only one dependency forces a name.",
+      "createdAt": "2023-05-21T14:25:38Z",
+      "updatedAt": "2023-05-21T16:00:16Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOJNH1SM5v7DqW",
+      "title": "Rename `clientId` to `clientIdentifier` in section 2.4",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/8",
+      "state": "CLOSED",
+      "author": "peombwa",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "`clientId` in [section 2.4](https://www.ietf.org/archive/id/draft-miller-api-manifest-01.html#section-2.4) should be renamed to `clientIdentifier`.\r\n\r\nSee discussion at https://github.com/microsoft/OpenApi.ApiManifest/pull/7.",
+      "createdAt": "2023-09-01T16:52:01Z",
+      "updatedAt": "2023-09-14T21:06:52Z",
+      "closedAt": "2023-09-14T21:06:52Z",
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOJNH1SM5v7F4d",
+      "title": "Add a mention of `authorizationRequirements.accessReference` in section 2.4",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/9",
+      "state": "OPEN",
+      "author": "peombwa",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The API Manifest spec should add a mention of [authorizationRequirements.accessReference](https://github.com/microsoft/OpenApi.ApiManifest/blob/96b16a2c710e44765d12ae39c50b2b7b2410e4e0/src/lib/Auth.cs#L8) in [section 2.4](https://www.ietf.org/archive/id/draft-miller-api-manifest-01.html#section-2.4) and/or link to its spec.\r\n\r\nSee discussion at https://github.com/microsoft/OpenApi.ApiManifest/pull/7.",
+      "createdAt": "2023-09-01T16:59:45Z",
+      "updatedAt": "2023-10-19T22:43:02Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "baywet",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@darrelmiller (or Peter if you have the answers) I started looking at that but I'm not able to \"guess\" all the aspects of that.\r\nFrom looking at the implementation code you can either use accesses or accessReferences (should we pluralize those properties since they both contain collections?) but not both at the same time. Is that the intent or simply some implementation drift? (over no spec).\r\n\r\nAlso could we get an example of the strings in there? it's a reference to what data in the manifest? (seems there doesn't seem to be a place to define access objects outside of the authorization requirements)",
+          "createdAt": "2023-09-01T17:48:00Z",
+          "updatedAt": "2023-09-01T17:48:00Z"
+        },
+        {
+          "author": "darrelmiller",
+          "authorAssociation": "OWNER",
+          "body": "Accessreference was an implementation detail.  In the original definition of RAR https://datatracker.ietf.org/doc/html/rfc9396#section-2 which was first defined in GNAP https://www.ietf.org/archive/id/draft-ietf-gnap-core-protocol-15.html#section-8.1 the \"access\" property, which in RAR is called \"authorization_details\" could either be an array of objects or an array of strings.  This is why it is declared as:\r\n\r\n```\r\n? access: [+accessRequest] | [+tstr]\r\n```\r\n\r\nI did not realize that when they wrote RAR they dropped the array of string option.  The array of strings is a really nice feature because it is what we currently do in OpenAPI.  Having support for both an array of strings and an array of objects gives a lot of flexibility.\r\n\r\n",
+          "createdAt": "2023-09-14T21:13:33Z",
+          "updatedAt": "2023-09-14T21:13:33Z"
+        },
+        {
+          "author": "baywet",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@darrelmiller my question was regarding accessReference, not access in that case. Unless we should drop accessReference in favour of access only?",
+          "createdAt": "2023-09-18T14:32:18Z",
+          "updatedAt": "2023-09-18T14:32:18Z"
+        },
+        {
+          "author": "peombwa",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@darrelmiller, looking at https://www.ietf.org/archive/id/draft-ietf-gnap-core-protocol-15.html#section-8.1, `access` can include a collection of both object-type and string-type, which can be difficult to model in some strongly typed language due to lack of union types (coughs c#...).\r\n\r\nI'm with @baywet on reviewing whether we should drop accessReference in favor of access to align with the current version of RAR.",
+          "createdAt": "2023-10-19T22:43:02Z",
+          "updatedAt": "2023-10-19T22:43:02Z"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "I_kwDOJNH1SM51ukG7",
+      "title": "Update section `2.3. API Dependency Object` to explicitly call out the requirement of `authorizationRequirements` and `requests` properties of `apiDependency`",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/13",
+      "state": "CLOSED",
+      "author": "peombwa",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "According to the CDDL at https://www.ietf.org/archive/id/draft-miller-api-manifest-01.html#name-request-info-object:\r\n``` cddl\r\napiDependency = {\r\n    ? apiDescriptionUrl: tstr\r\n    ? apiDescriptionVersion: tstr\r\n    ? apiDeploymentBaseUrl: tstr\r\n    authorizationRequirements: authorizationRequirements\r\n    requests: [+ requestInfo]\r\n    extensibility\r\n}\r\n\r\n; Permissions required by client application for the described dependency\r\nauthorizationRequirements = {\r\n    ? clientIdentifier: tstr\r\n    ? access: [+accessRequest] | [+tstr]\r\n}\r\n\r\nextensibility = (\r\n    ? extensions => {* tstr => any }\r\n)\r\naccessRequest = {\r\n    type : tstr ;\r\n    * tstr => any;\r\n}\r\n\r\n; Details of a resource request\r\nrequestInfo = {\r\n    method: tstr\r\n    uriTemplate: tstr\r\n    ? dataClassification: [* tstr]\r\n}\r\n```\r\n`authorizationRequirements` and `requests` properties of `apiDependency` are required. Section `2.3. API Dependency Object` of the API manifest makes no mention of this requirement (`SHOULD`, `MUST`, or `MAY`). Also, the implementation at https://github.com/microsoft/OpenApi.ApiManifest/blob/main/src/lib/ApiDependency.cs#L40-L55 assumes that the properties can be null and empty, respectively.\r\n\r\n#### Proposal\r\n- Make `authorizationRequirements` optional. This is needed to support APIs that don't require auth i.e. `apiDependency.authorizationRequirements` is null. The optionality should be added to:\r\n  - [x] CDDL diagram\r\n  - [x] Section 2.3.\r\n- Explicitly mention in section 2.3 that requests property of apiDependency is required. This should be added to:\r\n  - [x] Section 2.3.\r\n\r\nRelated to https://github.com/microsoft/OpenApi.ApiManifest/issues/18.\r\n",
+      "createdAt": "2023-11-02T22:28:38Z",
+      "updatedAt": "2023-11-29T16:47:33Z",
+      "closedAt": "2023-11-29T16:47:33Z",
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 3,
+      "id": "PR_kwDOJNH1SM5Rc3jT",
+      "title": "Code formatting edits",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/3",
+      "state": "CLOSED",
+      "author": "sebastienlevert",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixing code blocks failing\r\n\r\n![image](https://github.com/darrelmiller/api-manifest/assets/7620955/5f6d91ec-3bab-4cc9-b1c6-a11c816d6fb6)\r\n",
+      "createdAt": "2023-05-26T15:16:56Z",
+      "updatedAt": "2023-07-24T23:31:14Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "e386b18b54ff831119f89bc3f411132eea4350f7",
+      "headRepository": "sebastienlevert/api-manifest",
+      "headRefName": "main",
+      "headRefOid": "f6ca274c96fca098606239fb44fa87d9b759470e",
+      "closedAt": "2023-07-24T23:31:14Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "darrelmiller",
+          "authorAssociation": "OWNER",
+          "body": "Sorry Seb, I didn't see this. I did fix these issues though.",
+          "createdAt": "2023-07-24T23:31:14Z",
+          "updatedAt": "2023-07-24T23:31:14Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDOJNH1SM5Sj7ed",
+      "title": "Updates API manifest property names",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/4",
+      "state": "MERGED",
+      "author": "peombwa",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR proposes the following changes:\r\n- Removes repeating words in the `introduction` section.\r\n- Corrects property names for API manifest objects.\r\n\r\n### Open Question(s):\r\n- [ ] Should [`apiDependencies[\"example\"].auth`](https://darrelmiller.github.io/api-manifest/draft-miller-api-manifest.html#section-2.5-3) be renamed to `authorizationRequirements` to match the API manifest schema? `auth` vs `authorizationRequirements`?",
+      "createdAt": "2023-06-08T21:40:55Z",
+      "updatedAt": "2023-07-24T23:37:09Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "2fafb2211ffa4b9a66f1b6ac087a28ddbaa7c8d6",
+      "headRepository": "peombwa/api-manifest",
+      "headRefName": "main",
+      "headRefOid": "ceada52ceffc5f4b188bfe9f7af5cd05c83a0d5c",
+      "closedAt": "2023-07-24T23:36:55Z",
+      "mergedAt": "2023-07-24T23:36:55Z",
+      "mergedBy": "darrelmiller",
+      "mergeCommit": {
+        "oid": "e41ba5ec92009f1dc1d4279dc8a3b663bdaa26c5"
+      },
+      "comments": [
+        {
+          "author": "darrelmiller",
+          "authorAssociation": "OWNER",
+          "body": "> Should [apiDependencies[\"example\"].auth](https://darrelmiller.github.io/api-manifest/draft-miller-api-manifest.html#section-2.5-3) be renamed to authorizationRequirements to match the API manifest schema? auth vs authorizationRequirements?\r\n\r\nYes. Done",
+          "createdAt": "2023-07-24T23:37:09Z",
+          "updatedAt": "2023-07-24T23:37:09Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOJNH1SM5WRQEb",
+      "title": "Removed the exclude prop and added base url.",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/5",
+      "state": "MERGED",
+      "author": "darrelmiller",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Removed the exclude property as there is no more desire to allow the API Manifest to point to a set of operations via a single request info object.  Every \"operation\" must be described independently.  This prevents the scenario where an API provider adds a new operation becomes included in the scope of the API Manifest.\n\nAdded the apiDeploymentBaseUrl to enable the use of API descriptions that have no information about the deployment, or API descriptions that have multiple deployments described.",
+      "createdAt": "2023-07-24T20:54:31Z",
+      "updatedAt": "2023-07-24T21:03:27Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "c93ccd290beaa020784a6ea1a11868d76a0a9be2",
+      "headRepository": "darrelmiller/api-manifest",
+      "headRefName": "glob",
+      "headRefOid": "598933da4f7e03683816a1612cddb4c237ba4774",
+      "closedAt": "2023-07-24T21:03:27Z",
+      "mergedAt": "2023-07-24T21:03:27Z",
+      "mergedBy": "darrelmiller",
+      "mergeCommit": {
+        "oid": "5c8ec2220e7dcc7154ad5b04730cbac97f3ec2cd"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOJNH1SM5XDYJu",
+      "title": "fix minor typos and formatting",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/6",
+      "state": "MERGED",
+      "author": "zengin",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR contains minor typo fixes.",
+      "createdAt": "2023-08-02T22:27:23Z",
+      "updatedAt": "2023-08-31T14:39:46Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "7499f1fbd8c7347f8ace478197bd7288e7ad6135",
+      "headRepository": "zengin/api-manifest",
+      "headRefName": "main",
+      "headRefOid": "8e3b68b80e13d81fc664971284fb8ae634036854",
+      "closedAt": "2023-08-31T14:39:45Z",
+      "mergedAt": "2023-08-31T14:39:45Z",
+      "mergedBy": "darrelmiller",
+      "mergeCommit": {
+        "oid": "2f39a9009caaf92502cab587e619a319a32384ce"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJNH1SM5fo9ru",
+          "commit": {
+            "abbreviatedOid": "8e3b68b"
+          },
+          "author": "baywet",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-31T11:47:41Z",
+          "updatedAt": "2023-08-31T11:47:41Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJNH1SM5fo_pS",
+          "commit": {
+            "abbreviatedOid": "8e3b68b"
+          },
+          "author": "darrelmiller",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-31T11:52:54Z",
+          "updatedAt": "2023-08-31T11:52:54Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOJNH1SM5ZO7WF",
+      "title": "- adds language related to the apiDeploymentBaseUrl property",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/7",
+      "state": "MERGED",
+      "author": "baywet",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "related https://github.com/microsoft/OpenApi.ApiManifest/pull/7\n@peombwa I didn't follow the second subpoint of the second open question in your implementation PR. Would you mind expanding please?",
+      "createdAt": "2023-08-31T12:28:24Z",
+      "updatedAt": "2023-09-01T12:53:31Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "2f39a9009caaf92502cab587e619a319a32384ce",
+      "headRepository": "baywet/api-manifest",
+      "headRefName": "feature/base-url",
+      "headRefOid": "6abe4b81b3d4498c6e74b19f97dfae44f869000d",
+      "closedAt": "2023-09-01T12:53:31Z",
+      "mergedAt": "2023-09-01T12:53:31Z",
+      "mergedBy": "darrelmiller",
+      "mergeCommit": {
+        "oid": "4c89337aa9fafe86f69f3bb766e8192c69899fcc"
+      },
+      "comments": [
+        {
+          "author": "peombwa",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@baywet, thanks for getting started on this.\r\n\r\nBad list formatting. It's more like the 3rd question with 2 subpoints:\r\n>3. Should we explicitly specify requirement levels (MUST, MAY, etc.) for properties of the following objects?\r\n>     - [ ] All `requestInfo` properties. The [example in the API manifest spec](https://www.ietf.org/archive/id/draft-miller-api-manifest-01.html#section-2.5) suggests that `method` and `uriTemplate` are required yet section [2.5. Request Info Object](https://www.ietf.org/archive/id/draft-miller-api-manifest-01.html#section-2.5) makes no mention of their requirement level.\r\n>     - [ ] `apiDependency.authorizationRequirements` and `apiDependency.requests` properties when initializing an `apiDependency` object. [Section 2.3](https://www.ietf.org/archive/id/draft-miller-api-manifest-01.html#section-2.3) makes no mention of their requirement level.\r\n\r\nI've also visually captured the questions at https://github.com/microsoft/OpenApi.ApiManifest/issues/5.",
+          "createdAt": "2023-08-31T15:55:08Z",
+          "updatedAt": "2023-08-31T15:57:16Z"
+        },
+        {
+          "author": "baywet",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks for the additional details.\r\nThe goal of this PR is to make the changes mandated by question 2 and it is ready for review",
+          "createdAt": "2023-08-31T16:37:37Z",
+          "updatedAt": "2023-08-31T16:37:37Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJNH1SM5frvPj",
+          "commit": {
+            "abbreviatedOid": "f1f5159"
+          },
+          "author": "peombwa",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-08-31T17:35:26Z",
+          "updatedAt": "2023-08-31T17:35:26Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOJNH1SM5fsErT",
+          "commit": {
+            "abbreviatedOid": "f1f5159"
+          },
+          "author": "darrelmiller",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-31T18:08:32Z",
+          "updatedAt": "2023-08-31T18:08:33Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "We need to be really, really careful in our wording around how this baseUrl is combined with path in the request Info object.  I don't want to bring forward the mistake made in OpenAPI where relative paths used for pathItem keys start with /.\r\n",
+              "createdAt": "2023-08-31T18:08:33Z",
+              "updatedAt": "2023-08-31T18:08:33Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJNH1SM5fssDC",
+          "commit": {
+            "abbreviatedOid": "f1f5159"
+          },
+          "author": "baywet",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-31T19:18:16Z",
+          "updatedAt": "2023-08-31T19:18:17Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Do you want me to include language saying it MUST end with a trailing slash?",
+              "createdAt": "2023-08-31T19:18:17Z",
+              "updatedAt": "2023-08-31T19:18:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJNH1SM5fuCXk",
+          "commit": {
+            "abbreviatedOid": "f1f5159"
+          },
+          "author": "peombwa",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-31T23:30:16Z",
+          "updatedAt": "2023-08-31T23:30:16Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "> Do you want me to include language saying it MUST end with a trailing slash?\r\n\r\nThis sounds about right to me. I'll let Darrel have the final say on the wording. Trailing slash validation will also need to be added to the library if we settle for a trailing slash in `apiDeploymentBaseUrl`.",
+              "createdAt": "2023-08-31T23:30:16Z",
+              "updatedAt": "2023-08-31T23:30:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJNH1SM5fxr5s",
+          "commit": {
+            "abbreviatedOid": "f1f5159"
+          },
+          "author": "darrelmiller",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-01T12:32:52Z",
+          "updatedAt": "2023-09-01T12:32:52Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "Yup. I'm onboard with that strategy.  Although now \"MUST match one of the servers entries in the OpenAPI\" is tricky.  In OpenAPI you MUST not put a trailing slash on your base URL.\r\n\r\nAlso, I believe that I have avoided mentioning that API descriptions must be OpenAPI so far.  I don't think we can have a normative reference to OpenAPI.  We would need to say something like, \"the baseURL combined with the request UriTemplate SHOULD match a resource identified in the API description.\" ",
+              "createdAt": "2023-09-01T12:32:52Z",
+              "updatedAt": "2023-09-01T12:37:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJNH1SM5fxs8n",
+          "commit": {
+            "abbreviatedOid": "f1f5159"
+          },
+          "author": "baywet",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-09-01T12:35:34Z",
+          "updatedAt": "2023-09-01T12:35:35Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "added, let me know what you think.",
+              "createdAt": "2023-09-01T12:35:34Z",
+              "updatedAt": "2023-09-01T12:35:35Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJNH1SM5fxyb_",
+          "commit": {
+            "abbreviatedOid": "6abe4b8"
+          },
+          "author": "darrelmiller",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-01T12:50:01Z",
+          "updatedAt": "2023-09-01T12:50:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOJNH1SM5ZXBsM",
+      "title": "- renames clientId to clientIdentifier",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/10",
+      "state": "MERGED",
+      "author": "baywet",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #8",
+      "createdAt": "2023-09-01T17:39:35Z",
+      "updatedAt": "2023-09-14T21:06:51Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "4c89337aa9fafe86f69f3bb766e8192c69899fcc",
+      "headRepository": "baywet/api-manifest",
+      "headRefName": "feature/clientId-rename",
+      "headRefOid": "f9ea8df80da691071861eabcb1deafe4b656a0b1",
+      "closedAt": "2023-09-14T21:06:51Z",
+      "mergedAt": "2023-09-14T21:06:51Z",
+      "mergedBy": "darrelmiller",
+      "mergeCommit": {
+        "oid": "c87ff8bb9a704d95e0c94009cd439a52a38860dd"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOJNH1SM5ZXDK3",
+      "title": "- adds accessReference to the CDDL",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/11",
+      "state": "OPEN",
+      "author": "baywet",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fixes #9",
+      "createdAt": "2023-09-01T17:45:09Z",
+      "updatedAt": "2023-09-01T17:45:09Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "4c89337aa9fafe86f69f3bb766e8192c69899fcc",
+      "headRepository": "baywet/api-manifest",
+      "headRefName": "feature/access-reference",
+      "headRefOid": "5916a67830952adb555047e5a2acc34f10b49180",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOJNH1SM5bEE3G",
+      "title": "Added support for runtimes",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/12",
+      "state": "OPEN",
+      "author": "darrelmiller",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Runtimes are additional information needed by generic applications to help them consume the API referenced in the API manifest",
+      "createdAt": "2023-09-24T19:18:31Z",
+      "updatedAt": "2023-09-24T19:51:29Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "c87ff8bb9a704d95e0c94009cd439a52a38860dd",
+      "headRepository": "darrelmiller/api-manifest",
+      "headRefName": "plugin",
+      "headRefOid": "41b8629e5a70f767402ac16905b6edb81f6ec56c",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOJNH1SM5ee67L",
+      "title": "Specify requirement of `requests` and `authorizationRequirements` in section 2.3",
+      "url": "https://github.com/darrelmiller/api-manifest/pull/14",
+      "state": "MERGED",
+      "author": "peombwa",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #13 by:\r\n- Adds wording to section 2.3 of the API manifest spec to make `requests` required and `authorizationRequirements` optional.\r\n- Updates CDDL diagram show `authorizationRequirements` as optional.\r\n\r\nSuccessful merge of this PR will unblock https://github.com/microsoft/OpenApi.ApiManifest/issues/18.",
+      "createdAt": "2023-11-02T23:14:36Z",
+      "updatedAt": "2023-11-29T16:47:32Z",
+      "baseRepository": "darrelmiller/api-manifest",
+      "baseRefName": "main",
+      "baseRefOid": "c87ff8bb9a704d95e0c94009cd439a52a38860dd",
+      "headRepository": "peombwa/api-manifest",
+      "headRefName": "main",
+      "headRefOid": "68da07547aec6e6d037ac17bedd7d4c9a1aba149",
+      "closedAt": "2023-11-29T16:47:32Z",
+      "mergedAt": "2023-11-29T16:47:32Z",
+      "mergedBy": "darrelmiller",
+      "mergeCommit": {
+        "oid": "b9a69ffaf51d89bd56071f1a2f658e359802c2d4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJNH1SM5mG-7W",
+          "commit": {
+            "abbreviatedOid": "68da075"
+          },
+          "author": "zengin",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-11-03T16:25:26Z",
+          "updatedAt": "2023-11-03T16:25:26Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
