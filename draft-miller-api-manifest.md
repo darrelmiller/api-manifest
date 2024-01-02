@@ -119,6 +119,7 @@ apiDependency = {
 authorizationRequirements = {
     ? clientIdentifier: tstr
     ? access: [+accessRequest] | [+tstr]
+    ? accessReference: [+tstr]
 }
 
 extensibility = (
