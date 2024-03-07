@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-03-05T00:43:45.179803+00:00",
+  "timestamp": "2024-03-07T00:36:00.534779+00:00",
   "repo": "darrelmiller/api-manifest",
   "labels": [
     {
@@ -157,6 +157,38 @@
       "createdAt": "2023-11-02T22:28:38Z",
       "updatedAt": "2023-11-29T16:47:33Z",
       "closedAt": "2023-11-29T16:47:33Z",
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOJNH1SM6Bcpb8",
+      "title": "clarity around api dependency key is required",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/15",
+      "state": "OPEN",
+      "author": "baywet",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As the spec is defined today it's unclear whether a manifest can have multiple API dependencies with the same name which only differs in casing (`Foo` and `foo`).\r\nI believe that either way is fine, but adding clarifications around that scenario would help.",
+      "createdAt": "2024-03-06T15:23:16Z",
+      "updatedAt": "2024-03-06T15:23:16Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOJNH1SM6BczOv",
+      "title": "Consider making the application name optional",
+      "url": "https://github.com/darrelmiller/api-manifest/issues/16",
+      "state": "OPEN",
+      "author": "baywet",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Tooling that's going to generate the manifest from descriptions being used, or other scenarios, might not want to ask the use for an application name right away and/or it might not be available from the context.\r\nI'm also failing to see how a name would be required for any scenario beside maybe an import of the file in a security / audit system. In that scenario the import tooling can always ask it from the user/default it to a generated value at worst.",
+      "createdAt": "2024-03-06T15:38:44Z",
+      "updatedAt": "2024-03-06T15:38:44Z",
+      "closedAt": null,
       "comments": []
     }
   ],
